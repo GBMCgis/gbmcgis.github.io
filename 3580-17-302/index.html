@@ -202,12 +202,12 @@
         function pop_Images_1(feature, layer) {
              if (feature.properties) {
               var content1 = "<table class='table table-striped table-bordered table-condensed'>" + 
-                        "<tr><th>Current Conditions</th><td><a href='img/" + feature.properties.Before + "'><img src=img/" + feature.properties.Before + " class='img-responsive'></td></tr>";
+                        "<tr><th>Current Conditions</th><td align='center'><a href='img/" + feature.properties.Before + "' target='_blank'><img src=img/" + feature.properties.Before + " class='img-responsive'></td></tr>";
               var content2 = "";   
               m = 1 
               for (i in feature.properties.After){
                 content2 += 
-                    "<tr><th>Post Stabilization Example " + m + "</th><td>" +
+                    "<tr><th>Post Stabilization Example " + m + "</th><td align='center'>" +
                     "<a href='img/" + feature.properties.After[i] +  "' target='_blank'><img src=img/" + feature.properties.After[i] + " class='img-responsive'></a></td></tr>";
                 m++;
               };                        

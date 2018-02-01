@@ -44,7 +44,11 @@
         <!-- JQUERY -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="js/qgis2web_expressions.js"></script>
+        <!-- Google  -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn0UFfOZ2smnyzmnrsoda58zH_A79CMaI" async defer></script>
         <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+        <!-- Google Mutant -->
+        <script src='https://unpkg.com/leaflet.gridlayer.googlemutant@latest/Leaflet.GoogleMutant.js'></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
         <script src="js/leaflet.pattern.js"></script>
         <script src="js/leaflet-hash.js"></script>
@@ -116,9 +120,14 @@
         map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
         var bounds_group = new L.featureGroup([]);
 
-        L.esri.imageMapLayer({url: 'https://gis.arkansas.gov/arcgis/rest/services/ImageServices/IMAGERY_1FT_2017/ImageServer'}).addTo(map);
+        var hybrid = L.gridLayer.googleMutant({
+            type: 'hybrid' // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+        }).addTo(map);
+
+
+        //L.esri.imageMapLayer({url: 'https://gis.arkansas.gov/arcgis/rest/services/ImageServices/IMAGERY_1FT_2017/ImageServer'}).addTo(map);
         
-        L.esri.basemapLayer('ImageryLabels').addTo(map);
+        //L.esri.basemapLayer('ImageryLabels').addTo(map);
         
         
         function setBounds() {

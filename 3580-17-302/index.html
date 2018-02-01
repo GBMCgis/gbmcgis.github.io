@@ -153,7 +153,7 @@
                     return {
                 pane: 'pane_BankStabilizationEfforts_0',
                 opacity: 1,
-                color: 'rgba(141,182,0,1.0)',
+                color: 'rgba(0,255,0,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
@@ -165,7 +165,7 @@
                     return {
                 pane: 'pane_BankStabilizationEfforts_0',
                 opacity: 1,
-                color: 'rgba(220,211,0,1.0)',
+                color: 'rgba(255,255,0,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
@@ -177,7 +177,7 @@
                     return {
                 pane: 'pane_BankStabilizationEfforts_0',
                 opacity: 1,
-                color: 'rgba(190,0,50,1.0)',
+                color: 'rgba(255,0,0,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
@@ -231,7 +231,7 @@
                 case 'Low Stabilization':
                     return {
                 pane: 'pane_Images_1',
-                radius: 4.0,
+                radius: 8.0,
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
@@ -240,13 +240,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(141,182,0,1.0)',
+                fillColor: 'rgba(0,255,0,1.0)',
             }
                     break;
                 case 'Medium Stabilization':
                     return {
                 pane: 'pane_Images_1',
-                radius: 4.0,
+                radius: 8.0,
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
@@ -255,13 +255,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(220,211,0,1.0)',
+                fillColor: 'rgba(255,255,0,1.0)',
             }
                     break;
                 case 'High Stabilization':
                     return {
                 pane: 'pane_Images_1',
-                radius: 4.0,
+                radius: 8.0,
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
@@ -270,7 +270,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(190,0,50,1.0)',
+                fillColor: 'rgba(255,0,0,1.0)',
             }
                     break;
             }
@@ -294,7 +294,7 @@
         bounds_group.addLayer(layer_Images_1);
         map.addLayer(layer_Images_1);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Images<br /><table><tr><td style="text-align: center;"><img src="legend/Images_1_LowStabilization0.png" /></td><td>Low Stabilization</td></tr><tr><td style="text-align: center;"><img src="legend/Images_1_MediumStabilization1.png" /></td><td>Medium Stabilization</td></tr><tr><td style="text-align: center;"><img src="legend/Images_1_HighStabilization2.png" /></td><td>High Stabilization</td></tr></table>': layer_Images_1,'Bank Stabilization Efforts<br /><table><tr><td style="text-align: center;"><img src="legend/BankStabilizationEfforts_0_Low0.png" /></td><td>Low</td></tr><tr><td style="text-align: center;"><img src="legend/BankStabilizationEfforts_0_Medium1.png" /></td><td>Medium</td></tr><tr><td style="text-align: center;"><img src="legend/BankStabilizationEfforts_0_High2.png" /></td><td>High</td></tr></table>': layer_BankStabilizationEfforts_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'Images<br /><table><tr><td style="text-align: center;"><img src="legend/Images_1_LowStabilization0.png" /></td><td>&nbsp;Low Stabilization</td></tr><tr><td style="text-align: center;"><img src="legend/Images_1_MediumStabilization1.png" /></td><td>&nbsp;Medium Stabilization</td></tr><tr><td style="text-align: center;"><img src="legend/Images_1_HighStabilization2.png" /></td><td>&nbsp;High Stabilization</td></tr></table>': layer_Images_1,'Bank Stabilization Efforts<br /><table><tr><td style="text-align: center;"><img src="legend/BankStabilizationEfforts_0_Low0.png" /></td><td>&nbsp;&nbsp;Low</td></tr><tr><td style="text-align: center;"><img src="legend/BankStabilizationEfforts_0_Medium1.png" /></td><td>&nbsp;&nbsp;Medium</td></tr><tr><td style="text-align: center;"><img src="legend/BankStabilizationEfforts_0_High2.png" /></td><td>&nbsp;&nbsp;High</td></tr></table>': layer_BankStabilizationEfforts_0,},{collapsed:false}).addTo(map);
         setBounds();
         </script>
 

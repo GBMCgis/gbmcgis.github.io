@@ -35,6 +35,14 @@
             width: auto;
             min-width: 300px;   
             }
+            .my-custom-control {
+              border-radius: 5px;
+              background: url('../logo.png');
+              background-size: 163.375px 88.375px;
+              width:163.375px; /* you will likely need to specify image width and height here */
+              height:88.375px;
+              opacity: 1;
+            }
         </style>
         <title></title>
     </head>
@@ -282,6 +290,23 @@
         var baseMaps = {};
         L.control.layers(baseMaps,{'Deficiency<br /><table><tr><td style="text-align: center;"><img src="legend/Deficiency_2_InsufficientorlackofmaintenancetostormwaterBMPs0.png" /></td><td>Insufficient or lack of maintenance to stormwater BMPs</td></tr><tr><td style="text-align: center;"><img src="legend/Deficiency_2_SedimentleavingsitedischargedtowatersoftheState1.png" /></td><td>Sediment leaving site/discharged to waters of the State</td></tr><tr><td style="text-align: center;"><img src="legend/Deficiency_2_MultipleDeficiencies2.png" /></td><td>Multiple Deficiencies</td></tr></table>': layer_Deficiency_2,'<img src="legend/ReedSubstation_1.png" /> Reed Substation': layer_ReedSubstation_1,'<img src="legend/MonticelloEasttoReedMonticelloEasttoReedTransmissionLineLineString_0.png" /> Monticello East to Reed Transmission Line': layer_MonticelloEasttoReedMonticelloEasttoReedTransmissionLineLineString_0,},{collapsed:false}).addTo(map);
         setBounds();
+
+        var MyControl = L.Control.extend({
+            options: {
+              position: 'bottomleft'
+            },
+        
+            onAdd: function (map) {
+              // create the control container with a particular class name
+              // ** you can add the image to the div as a background image using css
+              var container = L.DomUtil.create('div', 'my-custom-control');
+        
+              // ... initialize other DOM elements, add listeners, etc.
+              return container;
+            }
+        });
+        
+        map.addControl(new MyControl());
         </script>
 
         <!-- BOOTSTRAP -->

@@ -6,7 +6,7 @@
         <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css">
+        <link rel="stylesheet" href="http://unpkg.com/leaflet@1.0.3/dist/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css">
         <style>
             html, body, #container {
@@ -196,7 +196,7 @@
               m = 1 
               for (i in feature.properties.IMG){
                 content2 += 
-                    "<tr><th>Deficiency #" + m + "</th><td align='center'>" +
+                    "<tr><th>" + feature.properties.IMG_Descri[i] + "</th><td align='center'>" +
                     "<a href='img/" + feature.properties.IMG[i] +  ".JPG' target='_blank'><img src=img/" + feature.properties.IMG[i] + ".JPG class='img-responsive'></a></td></tr>";
                 m++;
               };                        

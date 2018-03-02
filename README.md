@@ -1,3 +1,1 @@
-# gbmcgis.github.io
-
-## ☺
+# gbmcgis.github.i☺

@@ -125,14 +125,14 @@
           expanded: true
         }).addTo(map);
 
-        //var results = L.layerGroup().addTo(map);
-        //
-        //searchControl.on('results', function(data){
-        //  results.clearLayers();
-        //  for (var i = data.results.length - 1; i >= 0; i--) {
-        //    results.addLayer(L.marker(data.results[i].latlng));
-        //  }
-        //});
+        var results = L.layerGroup().addTo(map);
+        
+        searchControl.on('results', function(data){
+          results.clearLayers();
+          for (var i = data.results.length - 1; i >= 0; i--) {
+            results.addLayer(L.marker(data.results[i].latlng));
+          }
+        });
 
         /* Set bounds based on layers */
         var bounds_group = new L.featureGroup([]);

@@ -6,9 +6,10 @@
         <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"><!--link rel="stylesheet" href="css/L.Control.Locate.min.css"-->
-        <!--link rel="stylesheet" href="css/qgis2web.css">
-        <link rel="stylesheet" href="css/leaflet-search.css"-->
+        <title>Proposed Happy Valley to Hot Springs 500kV Transmission Line Project</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
         <style>
         html, body, #map {
             width: 100%;
@@ -24,34 +25,24 @@
         <div id="map">
         </div>
         
-        <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
-        
-        
-        
+        <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+        <script src="js/L.Control.Locate.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/autolinker/1.6.2/Autolinker.min.js"></script>
-        
-        
-        
-        
-
         <script src="https://unpkg.com/esri-leaflet@2.1.4/dist/esri-leaflet.js"></script>
-        <!--
-        <script src="js/labelgun.min.js"></script>
-        <script src="js/labels.js"></script>
-        <script src="js/leaflet.pattern.js"></script>
-        <script src="js/qgis2web_expressions.js"></script>
-        <script src="data/row_0.js"></script>
-        <script src="data/segments_1.js"></script>
-        <script src="js/leaflet.rotatedMarker.js"></script>
-        <script src="js/leaflet-search.js"></script>
-        <script src="js/rbush.min.js"></script>
-        <script src="js/leaflet-hash.js"></script>
-		-->
         <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.12/dist/esri-leaflet-geocoder.css">
         <script src="https://unpkg.com/esri-leaflet-geocoder@2.2.12/dist/esri-leaflet-geocoder.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
         <script>
 
+        $(window).resize(function() {
+		  sizeLayerControl();
+		});
+        
+		function sizeLayerControl() {
+		  $(".leaflet-control-layers").css("max-height", $("#map").height() - 50);
+		}
 
 
         /* Embedded GeoJSON files */
@@ -114,8 +105,12 @@
   		}
   		}).addTo(map);
 
+  		/* Initialize Find My Location */
+        L.control.locate({
+        	position:'topleft'
+        }).addTo(map);
 
-        
+
         /* AGIO Geocoder*/
         var agioGeocoder = window.L.esri.Geocoding.geocodeServiceProvider({
           url: 'https://gis.arkansas.gov/arcgis/rest/services/Locator/ASDI_Composite_Locator/GeocodeServer'
@@ -130,25 +125,16 @@
           expanded: true
         }).addTo(map);
 
-        var results = L.layerGroup().addTo(map);
+        //var results = L.layerGroup().addTo(map);
+        //
+        //searchControl.on('results', function(data){
+        //  results.clearLayers();
+        //  for (var i = data.results.length - 1; i >= 0; i--) {
+        //    results.addLayer(L.marker(data.results[i].latlng));
+        //  }
+        //});
 
-        searchControl.on('results', function(data){
-          results.clearLayers();
-          for (var i = data.results.length - 1; i >= 0; i--) {
-            results.addLayer(L.marker(data.results[i].latlng));
-          }
-        });
-
-        /* URL Lat/long Hashing for sharing */
-        //var hash = new L.Hash(map);
-
-        /* Map Attribution */
-        //map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
-
-        /* Initialize Find My Location */
-        //L.control.locate().addTo(map);
-
-
+        /* Set bounds based on layers */
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
@@ -212,7 +198,7 @@
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
-                weight: 3.0,
+                weight: 3.5,
                 fillOpacity: 0,
             }
         }
@@ -240,13 +226,6 @@
         },{collapsed:false}).addTo(map);
         setBounds();
 
-
-        /* Segment Search*/
-        //map.addControl(new L.Control.Search({
-        //    layer: layer_segments_1,
-        //    initial: false,
-        //    hideMarkerOnCollapse: true,
-        //    propertyName: 'NAME'}));
         </script>
     </body>
 </html>

@@ -383,7 +383,19 @@ var parcels = L.esri.featureLayer({
 
 
 
+/* AGIO Geocoder*/
+var agioGeocoder = window.L.esri.Geocoding.geocodeServiceProvider({
+  url: 'https://gis.arkansas.gov/arcgis/rest/services/Locator/ASDI_Composite_Locator/GeocodeServer'
+});
 
+var searchControl = window.L.esri.Geocoding.geosearch({
+  providers: [agioGeocoder],
+  position: 'topleft',
+  zoomToResult: true,
+  useMapBounds: false,
+  allowMultipleResults: false,
+  expanded: true
+}).addTo(map);
 
 
 // Identify Elevation

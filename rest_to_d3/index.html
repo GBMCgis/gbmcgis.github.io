@@ -240,7 +240,7 @@ function onEach_parcel (feature, layer) {
     click: function (e) {
       $("#feature_modal").modal("show");
       $('#feature_modal_body').html("");
-      $('#feature_modal_body').html(feature.properties.assess_val);
+      $('#feature_modal_title').html(feature.properties.parcel_id);
       var margin = { top: 50, right: 50, bottom: 50, left: 50 };
 
       var width = 960 - margin.left - margin.right,
@@ -252,7 +252,7 @@ function onEach_parcel (feature, layer) {
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      var noOfCirclesA = 1;
+      var noOfCirclesA = feature.properties.land_val / 100;
         noOfCirclesB = feature.properties.assess_val / 100;
 
       var aPos = width / 7;
@@ -303,14 +303,14 @@ function onEach_parcel (feature, layer) {
         .attr("class", "counter")
         .attr("x", aPos)
         .attr("text-anchor", "middle")
-        .text(0);
+        .text("Land Value");
 
       var legendB = svg.append("g")
         .append("text")
         .attr("class", "counter")
         .attr("x", bPos)
         .attr("text-anchor", "middle")
-        .text(0);
+        .text("Assessed Value");
 
       function increment(pile) {
         if (pile === "a") {
@@ -370,6 +370,7 @@ var parcels = L.esri.featureLayer({
           'parcel_id',
           'ow_name',
           'assess_val',
+          'land_val',
           'ph_add'],
   pane: 'pane_parcels',
   minZoom: 16,

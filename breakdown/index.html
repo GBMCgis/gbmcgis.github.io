@@ -1,0 +1,159 @@
+<!--
+first attempt at creating a "responsive" leaflet map with a d3 graph
+
+Also attempting to break the map script into smaller files
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link  href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/esri-leaflet/dist/esri-leaflet.js"></script>
+  <link rel="stylesheet" href="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css" />
+  <script src="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.12/dist/esri-leaflet-geocoder.css">
+  <script src="https://unpkg.com/esri-leaflet-geocoder@2.2.12/dist/esri-leaflet-geocoder.js"></script>
+  <script src = "https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
+
+
+
+  <!-- Locally Loaded -->
+  <link rel="stylesheet" href="style.css">
+  <script src="js/leaflet.polylineDecorator.js"></script>
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="navbar-icon-container">
+        <a href="#" class="navbar-icon pull-right visible-xs" id="nav-btn"><i class="fa fa-bars fa-lg white"></i></a>
+        <a href="#" class="navbar-icon pull-right visible-xs" id="sidebar-toggle-btn"><i class="fa fa-search fa-lg white"></i></a>
+      </div>
+      <a class="navbar-brand" href="#">GBMc GIS</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group has-feedback" id="geocoder">
+        </div>
+      </form>
+      <ul class="nav navbar-nav">
+        <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="about-btn"><i class="fa fa-question-circle white"></i>&nbsp;&nbsp;About</a></li>
+        <li class="dropdown">
+          <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe white"></i>&nbsp;&nbsp;Tools <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="full-extent-btn"><i class="fa fa-arrows-alt"></i>&nbsp;&nbsp;Zoom To Full Extent</a></li>
+            <li><a id="measure" href="#" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-picture-o"></i>&nbsp;&nbsp;Measure</a></li>
+            <li class="divider hidden-xs"></li>
+            <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="login-btn"><i class="fa fa-user"></i>&nbsp;&nbsp;Login</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" id="downloadDrop" href="#" role="button" data-toggle="dropdown"><i class="fa fa-layer-group white"></i>&nbsp;&nbsp;Layers <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" id="parcels" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-clone"></i>&nbsp;&nbsp;AGIO Parcels</a></li>
+              <li><a href="#" id="wqms" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-map-marker-alt"></i>&nbsp;&nbsp;ADEQ Water Quality Monitoring Stations</a></li>
+              <li><a href="#" id="flow_direction" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-bacon"></i>&nbsp;&nbsp;ADEQ Flow Direction</a></li>
+            </ul>
+        </li>
+        <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="list-btn"><i class="fa fa-list white"></i>&nbsp;&nbsp;POI List</a></li>
+      </ul>
+    </div><!--/.navbar-collapse -->
+  </div>
+</div>
+<!--
+<div id="container">
+  <div id="sidebar">
+    <div class="sidebar-wrapper">
+      <div class="panel panel-default" id="features">
+        <div class="panel-heading">
+          <h3 class="panel-title">Points of Interest
+          <button type="button" class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn"><i class="fa fa-chevron-left"></i></button></h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-8 col-md-8">
+              <input type="text" class="form-control search" placeholder="Filter" />
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <button type="button" class="btn btn-primary pull-right sort" data-sort="feature-name" id="sort-btn"><i class="fa fa-sort"></i>&nbsp;&nbsp;Sort</button>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-table">
+          <table class="table table-hover" id="feature-list">
+            <thead class="hidden">
+              <tr>
+                <th>Icon</th>
+              <tr>
+              <tr>
+                <th>Name</th>
+              <tr>
+              <tr>
+                <th>Chevron</th>
+              <tr>
+            </thead>
+            <tbody class="list"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="map"></div>
+</div>
+-->
+
+
+
+
+<div class="modal fade" id="feature_modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h4 class="modal-title text-primary" id="feature_modal_title"></h4>
+      </div>
+      <div class="modal-body" id="feature_modal_body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="map"></div>
+<div id="pixelValue" class="leaflet-bar">Click map for elevation</div>
+
+
+
+</body>
+<script src="map.js"></script>
+<script src="basemaps/AGIO_DEM_Hillshade.js"></script>
+<script src="basemaps/ESRI_Aerial_firefly.js"></script>
+<script src="basemaps/PAGIS_BareEarth.js"></script>
+<script src="layers/ADEQ_wqmonitoring_stations.js"></script>
+<script src="layers/ADEQ_flow_direction.js"></script>
+<script src="layers/AGIO_Parcels.js"></script>
+<script src="tools/identify_elevation.js"></script>
+<script src="tools/AGIO_geocoder.js"></script>
+<script src="tools/measure.js"></script>
+<script src="layer_control.js"></script>
+
+
+</html>

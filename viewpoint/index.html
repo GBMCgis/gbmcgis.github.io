@@ -193,9 +193,7 @@ var reaches = L.geoJson(null, {
       click: function (e) {
         $("#feature_modal").modal("show");
         $('#videoTab').html("<iframe src='" + feature.properties.URL + "' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
-        $('#imagesTab').html("<img src='/img/darkblue1r.png' class='img-rounded' alt='Dark Blue'>");
-        //$('#feature_modal_body').html("");
-        //$('#feature_modal_title').html(feature.properties.parcel_id);
+        $('#imagesTab').html("<img src='https://gbmcgis.github.io/viewpoint/img/darkblue1r.png' class='img-rounded' alt='Dark Blue'>");
       }
     })
   },
@@ -300,38 +298,6 @@ $.getJSON("reaches.geojson", function (data){
 
 
 
-/* Parcels Layer */
-function onEach_parcel (feature, layer) {
-  layer.on({
-    click: function (e) {
-      $("#feature_modal").modal("show");
-      //$('#feature_modal_body').html("");
-      //$('#feature_modal_title').html(feature.properties.parcel_id);
-    }
-  })
-}
-
-map.createPane('pane_parcels');
-//map.getPane('pane_parcels').style['mix-blend-mode'] = 'normal';
-var parcels = L.esri.featureLayer({
-  url: 'https://gis.arkansas.gov/arcgis/rest/services/FEATURESERVICES/Planning_Cadastre/FeatureServer/6',
-  simplifyFactor: 0.35,
-  precision: 5,
-  fields: ['OBJECTID',
-          'parcel_id',
-          'ow_name',
-          'assess_val',
-          'land_val',
-          'ph_add'],
-  pane: 'pane_parcels',
-  minZoom: 16,
-  style: {
-    color: '#A9A9A9',
-    weight: 1,
-  },
-  onEachFeature: onEach_parcel
-
-});
 
 
 

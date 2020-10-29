@@ -93,6 +93,7 @@ viewpoint farms
 
         <h4 class="modal-title text-primary" id="feature_modal_title"></h4>
       </div>
+
       <div class="modal-body" id="feature_modal_body">
         <div role="tabpanel">
         <!-- Nav tabs -->
@@ -112,7 +113,7 @@ viewpoint farms
       </div>
     </div>
 
-      </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
@@ -195,7 +196,7 @@ var reaches = L.geoJson(null, {
     layer.on({
       click: function (e) {
         $("#feature_modal").modal("show");
-        $('#feature_modal_body').html("<iframe src='" + feature.properties.URL + "' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+        //$('#feature_modal_body').html("<iframe src='" + feature.properties.URL + "' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
         //$('#feature_modal_body').html("");
         //$('#feature_modal_title').html(feature.properties.parcel_id);
       }

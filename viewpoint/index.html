@@ -190,10 +190,44 @@ var reaches = L.geoJson(null, {
     onEachFeature: function (feature, layer)
   {
     layer.on({
-      click: function (e) {
+      click: function (feature) {
         $("#feature_modal").modal("show");
         $('#videoTab').html("<iframe src='" + feature.properties.URL + "' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
-        $('#imagesTab').html("<iframe src='https://drive.google.com/embeddedfolderview?id=1LaPzL8E07NMWZX8yr3le0DtvnTMVS7S3#grid' style='width:100%; height:600px; border:0;'></iframe>");
+        switch (feature.properties.NAME) {
+            case 'DarkBlue':
+              return {
+                $('#imagesTab').html("<iframe src='https://drive.google.com/embeddedfolderview?id=1LaPzL8E07NMWZX8yr3le0DtvnTMVS7S3#grid' style='width:100%; height:600px; border:0;'></iframe>");
+              };
+              break;
+            case 'Green':
+              return {
+              };
+              break;
+            case 'LightBlue':
+              return {
+              };
+              break;
+            case 'LightGreen':
+              return {
+              };
+              break;
+            case 'Pink':
+              return {
+              };
+              break;
+            case 'Purple':
+              return {
+              };
+              break;
+            case 'Red':
+              return {
+              };
+              break;
+            case 'Yellow':
+              return {
+              };
+              break;
+          }
       }
     })
   },

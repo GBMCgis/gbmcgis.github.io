@@ -204,8 +204,7 @@ var reaches = L.geoJson(null, {
         else if (feature.properties.NAME == 'LightBlue') {
           $("#feature_modal").modal("show");
           $('#videoTab').html("<iframe src='" + feature.properties.URL + "' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
-          $('#imagesTab').html(
-            "<div role='tabpanel'>
+          $('#imagesTab').html("<div role='tabpanel'>
               <ul class='nav nav-tabs' role='tablist'>
                 <li role='presentation' class='nav-item'>
                   <a class='nav-link active' href='#tab1' aria-controls='uploadTab' role='tab' data-toggle='tab'>Proposed Stream Bank Stabilization / Buffer Enhancement</a>

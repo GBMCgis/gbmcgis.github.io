@@ -128,6 +128,7 @@ viewpoint farms
 
 $("#feature_modal").on("hidden.bs.modal", function () {
   $('#videoTab').html("");
+  $('#imagesTab').html("");
 });
 
 var map = L.map('map').setView([33.69879717851967, -94.43568706512453], 16);
@@ -192,6 +193,7 @@ var reaches = L.geoJson(null, {
       click: function (e) {
         $("#feature_modal").modal("show");
         $('#videoTab').html("<iframe src='" + feature.properties.URL + "' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+        $('#imagesTab').html("<img src='/img/darkblue1r.png' class='img-rounded' alt='Dark Blue'>");
         //$('#feature_modal_body').html("");
         //$('#feature_modal_title').html(feature.properties.parcel_id);
       }

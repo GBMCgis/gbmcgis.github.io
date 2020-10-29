@@ -191,11 +191,11 @@ var reaches = L.geoJson(null, {
   {
     layer.on({
       click: function (feature) {
-        $("#feature_modal").modal("show");
-        $('#videoTab').html("<iframe src='" + feature.properties.URL + "' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
         switch (feature.properties.NAME) {
             case 'DarkBlue':
               return {
+                $("#feature_modal").modal("show");
+                $('#videoTab').html("<iframe src='" + feature.properties.URL + "' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
                 $('#imagesTab').html("<iframe src='https://drive.google.com/embeddedfolderview?id=1LaPzL8E07NMWZX8yr3le0DtvnTMVS7S3#grid' style='width:100%; height:600px; border:0;'></iframe>");
               };
               break;

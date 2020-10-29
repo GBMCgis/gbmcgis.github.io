@@ -162,28 +162,7 @@ var dem = L.esri.imageMapLayer({
   renderingRule: renderingRule
 });
 
-var propboundLayer = L.geoJson(null);
-var propbound = L.geoJson(null, {
-    onEachFeature: function (feature, layer)
-  {
 
-  },
-  style: function (feature) {
-    return {
-      weight: '0.0',
-      fillColor: '#0067a5',
-      color: '#FF0000',
-      weight: '3.0',
-      dashArray: '',
-      opacity: '1.0',
-      fillOpacity: '0.0',
-    };
-    }
-}).addTo(map);
-
-$.getJSON("PropertyBoundary.geojson", function (data){
-  propbound.addData(data);
-});
 
 
 
@@ -341,7 +320,28 @@ $.getJSON("reaches.geojson", function (data){
   reaches.addData(data);
 });
 
+var propboundLayer = L.geoJson(null);
+var propbound = L.geoJson(null, {
+    onEachFeature: function (feature, layer)
+  {
 
+  },
+  style: function (feature) {
+    return {
+      weight: '3.0',
+      fillColor: '#0067a5',
+      color: '#FF0000',
+      weight: '3.0',
+      dashArray: '',
+      opacity: '1.0',
+      fillOpacity: '0.0',
+    };
+    }
+}).addTo(map);
+
+$.getJSON("PropertyBoundary.geojson", function (data){
+  propbound.addData(data);
+});
 
 
 

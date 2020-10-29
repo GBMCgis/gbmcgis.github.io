@@ -63,11 +63,6 @@ viewpoint farms
       stroke: black;
     }
 
-    .coin-text {
-      opacity: 0.6;
-      font-size: 12px;
-    }
-
     .counter {
       font-size: 20px;
     }
@@ -132,7 +127,7 @@ viewpoint farms
 <script>
 
 $("#feature_modal").on("hidden.bs.modal", function () {
-  $('#feature_modal_body').html("");
+  $('#videoTab').html("");
 });
 
 var map = L.map('map').setView([33.69879717851967, -94.43568706512453], 16);
@@ -196,7 +191,7 @@ var reaches = L.geoJson(null, {
     layer.on({
       click: function (e) {
         $("#feature_modal").modal("show");
-        //$('#feature_modal_body').html("<iframe src='" + feature.properties.URL + "' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+        $('#videoTab').html("<iframe src='" + feature.properties.URL + "' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
         //$('#feature_modal_body').html("");
         //$('#feature_modal_title').html(feature.properties.parcel_id);
       }

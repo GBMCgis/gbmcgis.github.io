@@ -76,6 +76,94 @@ viewpoint farms
       top: 10px;
       left: 10px;
     }
+    .DarkBluecluster {
+      /*width: 40px;
+      height: 40px;*/
+      background-color: #0067a5;
+      text-align: center;
+      font-size: 18px;
+      color: white;
+      border: 1px solid black;
+      border-radius: 50%;
+      opacity: 0.75;
+    }
+    .Greencluster {
+      /*width: 40px;
+      height: 40px;*/
+      background-color: #008856;
+      text-align: center;
+      font-size: 18px;
+      color: white;
+      border: 1px solid black;
+      border-radius: 50%;
+      opacity: 0.75;
+    }
+    .LightBluecluster {
+      /*width: 40px;
+      height: 40px;*/
+      background-color: #a1caf1;
+      text-align: center;
+      font-size: 18px;
+      color: white;
+      border: 1px solid black;
+      border-radius: 50%;
+      opacity: 0.75;
+    }
+    .LightGreencluster {
+      /*width: 40px;
+      height: 40px;*/
+      background-color: #8db600;
+      text-align: center;
+      font-size: 18px;
+      color: white;
+      border: 1px solid black;
+      border-radius: 50%;
+      opacity: 0.75;
+    }
+    .Pinkcluster {
+      /*width: 40px;
+      height: 40px;*/
+      background-color: #FFC0CB;
+      text-align: center;
+      font-size: 18px;
+      color: white;
+      border: 1px solid black;
+      border-radius: 50%;
+      opacity: 0.75;
+    }
+    .Purplecluster {
+      /*width: 40px;
+      height: 40px;*/
+      background-color: #875692;
+      text-align: center;
+      font-size: 18px;
+      color: white;
+      border: 1px solid black;
+      border-radius: 50%;
+      opacity: 0.75;
+    }
+    .Redcluster {
+      /*width: 40px;
+      height: 40px;*/
+      background-color: #be0032;
+      text-align: center;
+      font-size: 18px;
+      color: white;
+      border: 1px solid black;
+      border-radius: 50%;
+      opacity: 0.75;
+    }
+    .Yellowcluster {
+      /*width: 40px;
+      height: 40px;*/
+      background-color: #dcd300;
+      text-align: center;
+      font-size: 18px;
+      color: white;
+      border: 1px solid black;
+      border-radius: 50%;
+      opacity: 0.75;
+    }
   </style>
 </head>
 
@@ -117,6 +205,12 @@ $("#feature_modal").on("hidden.bs.modal", function () {
   $('#videoTab').html("");
 
 });
+
+if ( !("ontouchstart" in window) ) {
+  $(document).on("mouseover", ".feature-row", function(e) {
+    highlight.clearLayers().addLayer(L.circleMarker([$(this).attr("lat"), $(this).attr("lng")], highlightStyle));
+  });
+}
 
 var map = L.map('map').setView([33.69879717851967, -94.43568706512453], 16);
 
@@ -284,10 +378,157 @@ $.getJSON("PropertyBoundary.geojson", function (data){
   propbound.addData(data);
 });
 
-
-var gbmcpics = {
+var DarkBlue = {
 "type": "FeatureCollection",
-"name": "allpics",
+"name": "DarkBlue",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream buffer enhancement", "gid": "1FUSBGdLkvRnhBfokI7VPHUbPK-0ks1eE" }, "geometry": { "type": "Point", "coordinates": [ -94.43160799965824, 33.69464727803534 ] } },
+{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream buffer enhancement", "gid": "13WDPhhD9SfpEME6flQXoBP4Z2qEn8ipu" }, "geometry": { "type": "Point", "coordinates": [ -94.43497191682755, 33.697242277397038 ] } },
+{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream buffer enhancement", "gid": "1B5vYYXXfhgV-UsylnOJ-K1axo4ap9TIn" }, "geometry": { "type": "Point", "coordinates": [ -94.431833999758766, 33.69418599995975 ] } },
+{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream buffer enhancement", "gid": "1eLskh9vNgUtjRDEBxQRulrwGzsBeqwAl" }, "geometry": { "type": "Point", "coordinates": [ -94.432936000089768, 33.695079000246309 ] } },
+{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream buffer enhancement", "gid": "1y0jLGi5KD2mibLvmt2KsOxTO-GoE6OG-" }, "geometry": { "type": "Point", "coordinates": [ -94.433246999638357, 33.696192999756008 ] } },
+{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream buffer enhancement", "gid": "1TEf15RQaA0Ve9p74dzPCiAs9b3J-zn2K" }, "geometry": { "type": "Point", "coordinates": [ -94.434413000106233, 33.697105999847054 ] } },
+{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1XRccmU3j_LDJx_mJ2ZakA1k75slJDiZl" }, "geometry": { "type": "Point", "coordinates": [ -94.434443999762792, 33.697030000038147 ] } },
+{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream buffer enhancement", "gid": "1R8ZHYC0axKb_yoBBbpEsTdyUFc_RFFUW" }, "geometry": { "type": "Point", "coordinates": [ -94.435828000209824, 33.697995999848509 ] } }
+]
+}
+
+var Green = {
+"type": "FeatureCollection",
+"name": "Green",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": null, "gid": "1QQlmJXx71ZycoAY7ad6us_SmprLI37zV" }, "geometry": { "type": "Point", "coordinates": [ -94.428986111065498, 33.698380555896883 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": null, "gid": "1i0rTlR5GlL7Q3-B7BeHuwCtowTQMlwXc" }, "geometry": { "type": "Point", "coordinates": [ -94.428994444179366, 33.69836944457316 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": null, "gid": "1qvPiW8ikFO9CR0-jBSDYGqJLz1xUQv_H" }, "geometry": { "type": "Point", "coordinates": [ -94.429061110803119, 33.698283333376189 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": null, "gid": "1t0ZKXuY1509tfXJyeAuAPczhJ2INMSnY" }, "geometry": { "type": "Point", "coordinates": [ -94.429144444684653, 33.69831111139414 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": null, "gid": "1cgfvxr1_3MP7DI5nCNyjtWWGi4TWndA8" }, "geometry": { "type": "Point", "coordinates": [ -94.429161111536772, 33.698322222067191 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream buffer enhancement", "gid": "1tUCoaUSDcYUvK8QcXU9DI_5mQ7iWE-ff" }, "geometry": { "type": "Point", "coordinates": [ -94.429137388877805, 33.699970722314688 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1j99sHsItdP41lnfNLt8fCHof9SyaRlke" }, "geometry": { "type": "Point", "coordinates": [ -94.428745999744393, 33.704495999966618 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream bank stabilization", "gid": "1gosInp3xK9dq-DUVRpiY9Lyqm17Dnriu" }, "geometry": { "type": "Point", "coordinates": [ -94.428475000188641, 33.703702999947048 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1O-MWoob1TC22i2suiZ4K7FHmpuTPPdNN" }, "geometry": { "type": "Point", "coordinates": [ -94.427867000282063, 33.705340000139813 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream buffer enhancement", "gid": "1GHMrCyOWLuBgF2eb7qKuvuJFTD1Rbs9j" }, "geometry": { "type": "Point", "coordinates": [ -94.427353000293706, 33.702776000277538 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream buffer enhancement", "gid": "15oWiaKO0Bjn-DsnOd6V8YM5fnACMXwot" }, "geometry": { "type": "Point", "coordinates": [ -94.428573000501089, 33.702002000180386 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream bank stabilization", "gid": "1WMFiDQc26WoZLIHbKHiV8X0C4czlPhmx" }, "geometry": { "type": "Point", "coordinates": [ -94.428475000188641, 33.703702999947048 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed hydrologic enhancement\/buffer enhancement", "gid": "1iTw-jV5MRQU0-o9jOObya16dF7GQfLju" }, "geometry": { "type": "Point", "coordinates": [ -94.427867000282063, 33.705340000139813 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream buffer enhancement", "gid": "1OXnVvJ_whdU2-w3_H5aahJUHcVRmAdGu" }, "geometry": { "type": "Point", "coordinates": [ -94.427353000293706, 33.702776000277538 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1JalaWv7rBYCG-qt6qu_eBlo6ffCenzkw" }, "geometry": { "type": "Point", "coordinates": [ -94.428573000501089, 33.702002000180386 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1l9whcMIqXVGK0s_KlxECd8lEX_cGB_cl" }, "geometry": { "type": "Point", "coordinates": [ -94.428745999744393, 33.704495999966618 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed hydrologic enhancement\/buffer enhancement", "gid": "1NR9oSsKja-s68ABRRZ3t-kA6mJ3B_Lvu" }, "geometry": { "type": "Point", "coordinates": [ -94.428745999744393, 33.704495999966618 ] } }
+]
+}
+
+
+var LightBlue = {
+"type": "FeatureCollection",
+"name": "LightBlue",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1Mux1HQzABHPV44_L-2BgVVafRwQmqn7C" }, "geometry": { "type": "Point", "coordinates": [ -94.430961110744178, 33.698369444887788 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1Uu-80cYYpCDTrTXetX9YV-GlSXfDeY-A" }, "geometry": { "type": "Point", "coordinates": [ -94.431227778011873, 33.6983388884371 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed hydrologic enhancement\/buffer enhancement", "gid": "1ThnX5A8x-9Dbt2EmWGKTNLmelEpAbOo-" }, "geometry": { "type": "Point", "coordinates": [ -94.445038889402028, 33.692183333334853 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "19np06z0ZXfOUY5UIO5ngO9EZcVt-X9TK" }, "geometry": { "type": "Point", "coordinates": [ -94.431004749411656, 33.697464555365471 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "15x9k8_ol-MqiueDFcXvGvcO2ql6XzT9f" }, "geometry": { "type": "Point", "coordinates": [ -94.431005139121496, 33.69746600008736 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream buffer enhancement", "gid": "12H5a37OngeVmlO9SPwIC6KX-43J0Tof0" }, "geometry": { "type": "Point", "coordinates": [ -94.430801664418212, 33.697100860640887 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1hWvj4UNBLStZTFdUZa688IoyN1xdfcJt" }, "geometry": { "type": "Point", "coordinates": [ -94.431156000045121, 33.697664999977981 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1-FYYCqRTKruYrfPZLfppWjzHmZBR8LDr" }, "geometry": { "type": "Point", "coordinates": [ -94.430584000464179, 33.697097999547267 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed hydrologic enhancement\/bank stabilization", "gid": "195f-D7zxZA-WYywRWP1hgVZMg6p-iwTk" }, "geometry": { "type": "Point", "coordinates": [ -94.429428000172365, 33.695680000159591 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1R3vk_PP3JpbnGTgPUkkmPFUiaY_9QTtr" }, "geometry": { "type": "Point", "coordinates": [ -94.430584000464179, 33.697097999547267 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream preservation", "gid": "1tge2tgZpCf8vwriZBZ_tc3h0NxzcMGUu" }, "geometry": { "type": "Point", "coordinates": [ -94.429428000172365, 33.695680000159591 ] } }
+]
+}
+
+
+var LightGreen = {
+"type": "FeatureCollection",
+"name": "LightGreen",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream buffer enhancement", "gid": "1q3JPck9TVmI9QMjpsP2c6N8LSchr88V4" }, "geometry": { "type": "Point", "coordinates": [ -94.42954166680272, 33.697869444279064 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream buffer enhancement", "gid": "1RUY3dsgfA-rOckAXN-Axzx8tIa9MwEYq" }, "geometry": { "type": "Point", "coordinates": [ -94.429611110805808, 33.697466666290154 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream buffer enhancement\/hydrologic enhancement", "gid": "1AozfGBrDFDGXw0K3Klgxz93Xx2Fv2pXl" }, "geometry": { "type": "Point", "coordinates": [ -94.431388888958807, 33.694011111178696 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed hydrologic enhancement", "gid": "1f484Kvl2OPuK_XgzazLpx1L_d3Y-nqKa" }, "geometry": { "type": "Point", "coordinates": [ -94.430588888356468, 33.693341666292824 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed hydrologic enhancement\/buffer enhancement", "gid": "1NyfiY2kWJV1OqJH5sQ2lpxoqTli4hENd" }, "geometry": { "type": "Point", "coordinates": [ -94.445222222741521, 33.691966666816938 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1nsWxHS8WdtaPeorsSXfYNk6Zg55nzYBn" }, "geometry": { "type": "Point", "coordinates": [ -94.445136110885528, 33.691883333636838 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream buffer enhancement", "gid": "1Bzs25Ap-gzx05ATCwcyDm8e1u0RCTJ7C" }, "geometry": { "type": "Point", "coordinates": [ -94.44203900026119, 33.698852999774253 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream buffer enhancement", "gid": "1R9fgVGTVgBpGfNxyWUSYlaDb6FgPzMGT" }, "geometry": { "type": "Point", "coordinates": [ -94.44140600040636, 33.697186999911459 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream buffer enhancement\/hydrologic enhancement", "gid": "11e0Hj-uRLGgE2fCg9m8-0Da5nj7hq8Ks" }, "geometry": { "type": "Point", "coordinates": [ -94.44203900026119, 33.698852999774253 ] } },
+{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "15pjNYP1MjiQeDxNcWs1Ka2k976S_0e-p" }, "geometry": { "type": "Point", "coordinates": [ -94.44140600040636, 33.697186999911459 ] } }
+]
+}
+
+var Pink = {
+"type": "FeatureCollection",
+"name": "Pink",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1Ifi0XjbUyzFWAgDXi8PE-o1z84k999qe" }, "geometry": { "type": "Point", "coordinates": [ -94.429252777469117, 33.699147221886818 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1RCQEJvCF5Uhr0G4A1LhAm4oEp2LDzLyj" }, "geometry": { "type": "Point", "coordinates": [ -94.429266666324693, 33.699150000236202 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement\/hydrologic enhancement", "gid": "1FVgt5wMWqBHIBF_0mr6W4DlhmlpMcv_i" }, "geometry": { "type": "Point", "coordinates": [ -94.429566666624325, 33.6978694444418 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1soVvoBQw3dEm9JXTo5JtKbiM3ss0sT3k" }, "geometry": { "type": "Point", "coordinates": [ -94.43159510003251, 33.694661300345039 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "16rNTcLEf5A9tlv9qZBENDXpcrb48hrSG" }, "geometry": { "type": "Point", "coordinates": [ -94.429600000324143, 33.693089000408641 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "16MjO1UWSjA_B19hhGC83uSRS_jRBN4HU" }, "geometry": { "type": "Point", "coordinates": [ -94.429804000449082, 33.692909000020755 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1-623N65Hhi51GDmuxRzSI8f83X3RZ2im" }, "geometry": { "type": "Point", "coordinates": [ -94.429370000493307, 33.692465999603165 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1dn1-n1htpi--nBFO1fk0ZD9yifhLhzrm" }, "geometry": { "type": "Point", "coordinates": [ -94.431539000320527, 33.694681999906287 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1d6oJogzJ3jT3iDdnz45XcQuSPjR1R1WL" }, "geometry": { "type": "Point", "coordinates": [ -94.430618000188147, 33.693381999793559 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1rbWUljOwlnz17TH-eFCgHKW-Egs9Nx_m" }, "geometry": { "type": "Point", "coordinates": [ -94.429804000449082, 33.692909000020755 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1Ig3WZ4thghzb2sYWunJgrlBkFeEBzv30" }, "geometry": { "type": "Point", "coordinates": [ -94.431539000320527, 33.694681999906287 ] } }
+]
+}
+
+
+var Purple = {
+"type": "FeatureCollection",
+"name": "Purple",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed stream buffer enhancement", "gid": "1A3Qs2VB3RCZ22DXsjQh6zN9NznEru2f4" }, "geometry": { "type": "Point", "coordinates": [ -94.431818300282742, 33.694246833448716 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed stream buffer enhancement", "gid": "1qQb8tMuYoM0yv7hBAI_8VEftz758ZkDh" }, "geometry": { "type": "Point", "coordinates": [ -94.431542716274464, 33.693793633088191 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed stream buffer enhancement", "gid": "1lc3TOcieVAMprrTx8OxMV8vGAcYyHHPL" }, "geometry": { "type": "Point", "coordinates": [ -94.430899750450806, 33.693590382937607 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed stream buffer enhancement", "gid": "1V0yFPa-fyzi4NG1i7omy9_LhZbBYHStV" }, "geometry": { "type": "Point", "coordinates": [ -94.429344083760569, 33.69536158342698 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": null, "gid": "1u1th076AsQXc22afGTCNH8yClKjPzNcE" }, "geometry": { "type": "Point", "coordinates": [ -94.428249933676199, 33.692735667102582 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed hydrologic enhancement", "gid": "19zK3AcuIvL9QWeLHKiIxnF8DDeLP2AWc" }, "geometry": { "type": "Point", "coordinates": [ -94.428384000299943, 33.692494999900568 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed stream buffer enhancement\/hydrologic enhancement", "gid": "1y7DqgA3fToFD19GUQmWoc0zwN84KxSY5" }, "geometry": { "type": "Point", "coordinates": [ -94.429191000495223, 33.694683000291363 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed hydrologic enhancement", "gid": "1WGPeIy5CJIrfwe7GWniOmD3Cm8erIfNF" }, "geometry": { "type": "Point", "coordinates": [ -94.428654000348089, 33.694041999682312 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "11P5iPJ5jj5eaw-b2MWY71AsM1rjg8vNX" }, "geometry": { "type": "Point", "coordinates": [ -94.428434999839411, 33.692980999830489 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "11VXYxv0XAVAzeAlmkX2G91HZEKMB6hnZ" }, "geometry": { "type": "Point", "coordinates": [ -94.428434999839411, 33.692980999830489 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed hydrologic enhancement", "gid": "1Ls6_IogQPrzcxMtycaql8NSkyqKM5sR9" }, "geometry": { "type": "Point", "coordinates": [ -94.428384000299943, 33.692494999900568 ] } }
+]
+}
+
+
+var Red = {
+"type": "FeatureCollection",
+"name": "Red",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream buffer enhancement\/hydrologic enhancement", "gid": "15gDFMKqi3dFhl6aCqTQvuUEu-St1Nldn" }, "geometry": { "type": "Point", "coordinates": [ -94.429650000293279, 33.697452778066548 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream preservation", "gid": "1viFBEXVvBbUHJ_EFh60uLpdjPALqtQy2" }, "geometry": { "type": "Point", "coordinates": [ -94.428397222511109, 33.692761110956006 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream buffer enhancement", "gid": "1Ww769QRGlVk69urLNlpWWglaKdZ8hY6G" }, "geometry": { "type": "Point", "coordinates": [ -94.428383333038113, 33.692769444827519 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1HpxihWiLeoL21sfHwkUF4RmnF8jSblql" }, "geometry": { "type": "Point", "coordinates": [ -94.4315722223687, 33.69949722223339 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream buffer enhancement", "gid": "1tyVQ0QvDL3CBp5P18wkZp0FwUzqBWpk9" }, "geometry": { "type": "Point", "coordinates": [ -94.43080911107289, 33.698333027681329 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream buffer enhancement", "gid": "1bw1j2xTeyGSJvafmRCcU9jpDO5zJmT6_" }, "geometry": { "type": "Point", "coordinates": [ -94.430022861394477, 33.700901333295995 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream buffer enhancement", "gid": "1cWMrdYnXjJwKXv9bYKzSKveUG1CJYpBP" }, "geometry": { "type": "Point", "coordinates": [ -94.430021166689073, 33.700900833463784 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream buffer enhancement", "gid": "10Pv1KxxVxOZNXYiLMV6Go0Uq5Do5CjX6" }, "geometry": { "type": "Point", "coordinates": [ -94.430561361639022, 33.699732472220944 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization", "gid": "1mcKa6rBy_Gn8G5AqjZo5CUmVrCl3HwS0" }, "geometry": { "type": "Point", "coordinates": [ -94.43179539649185, 33.702652784995522 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization", "gid": "1UYplp4coeM_CPqheCp_eJlLgTTC-JcTA" }, "geometry": { "type": "Point", "coordinates": [ -94.431687903741803, 33.703142264547402 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream preservation", "gid": "1p6gbauj1FPCJuqd5PAPWARJuiD_4wTkE" }, "geometry": { "type": "Point", "coordinates": [ -94.432628999577943, 33.705619000335609 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream buffer enhancement", "gid": "1TonQzsFtEyJBO4qbmbwUeh2ZAhNuBzZe" }, "geometry": { "type": "Point", "coordinates": [ -94.431728000352578, 33.703346000338541 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1i9nTPGigRy-cLnEqbVO98Ql7_3h_DIMU" }, "geometry": { "type": "Point", "coordinates": [ -94.432019999693239, 33.700870999921008 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1QZKAhax-NiaeqW_FickBhe6u82t9ypcY" }, "geometry": { "type": "Point", "coordinates": [ -94.4315880003617, 33.699352999561512 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "12a5zah3teS4d9mdsD0CCzl2qjzWSgwoK" }, "geometry": { "type": "Point", "coordinates": [ -94.430967999462766, 33.698774999752722 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1G9rHljo1mbx1g9Q0Z1E7FmTEyxVHhtVZ" }, "geometry": { "type": "Point", "coordinates": [ -94.43179539649185, 33.702652784995522 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization", "gid": "1khpXE8rlf20GxrqvcFjvUSL2wbrV2OAu" }, "geometry": { "type": "Point", "coordinates": [ -94.432628999577943, 33.705619000335609 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed hydrologic enhacement", "gid": "1iP1O2Sjx56HKavdkYm0DfodyfZCQFkTu" }, "geometry": { "type": "Point", "coordinates": [ -94.431728000352578, 33.703346000338541 ] } },
+{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed hydrologic enhacement", "gid": "1Zv6Pq0yzXVkwVmBwJuKWF1Xn9abEGnA4" }, "geometry": { "type": "Point", "coordinates": [ -94.431728000352578, 33.703346000338541 ] } }
+]
+}
+
+
+var Yellow = {
+"type": "FeatureCollection",
+"name": "Yellow",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
 { "type": "Feature", "properties": { "COLOR": "Yellow", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1_Vbu3Oqez7zqQbkcmvx643KwU3wxGq4R" }, "geometry": { "type": "Point", "coordinates": [ -94.432127777669479, 33.701347222491215 ] } },
@@ -300,148 +541,275 @@ var gbmcpics = {
 { "type": "Feature", "properties": { "COLOR": "Yellow", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1puiO5YXVN7cLYe3E_crdVyjm6ijbDbc4" }, "geometry": { "type": "Point", "coordinates": [ -94.444830555528682, 33.692275000410717 ] } },
 { "type": "Feature", "properties": { "COLOR": "Yellow", "descriptio": "proposed hydrologic enhancement", "gid": "1KVVBl-XVRV-7WTSbj3x3WTryRebNFqyz" }, "geometry": { "type": "Point", "coordinates": [ -94.445533333314401, 33.691761111548651 ] } },
 { "type": "Feature", "properties": { "COLOR": "Yellow", "descriptio": "proposed stream buffer enhancement", "gid": "1gRNpOfQLpQ5qrJ2nMCjaSlqGVHx4NB4D" }, "geometry": { "type": "Point", "coordinates": [ -94.445524999835825, 33.69177499978391 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream buffer enhancement\/hydrologic enhancement", "gid": "15gDFMKqi3dFhl6aCqTQvuUEu-St1Nldn" }, "geometry": { "type": "Point", "coordinates": [ -94.429650000293279, 33.697452778066548 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream preservation", "gid": "1viFBEXVvBbUHJ_EFh60uLpdjPALqtQy2" }, "geometry": { "type": "Point", "coordinates": [ -94.428397222511109, 33.692761110956006 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream buffer enhancement", "gid": "1Ww769QRGlVk69urLNlpWWglaKdZ8hY6G" }, "geometry": { "type": "Point", "coordinates": [ -94.428383333038113, 33.692769444827519 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1HpxihWiLeoL21sfHwkUF4RmnF8jSblql" }, "geometry": { "type": "Point", "coordinates": [ -94.4315722223687, 33.69949722223339 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1Ifi0XjbUyzFWAgDXi8PE-o1z84k999qe" }, "geometry": { "type": "Point", "coordinates": [ -94.429252777469117, 33.699147221886818 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1RCQEJvCF5Uhr0G4A1LhAm4oEp2LDzLyj" }, "geometry": { "type": "Point", "coordinates": [ -94.429266666324693, 33.699150000236202 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement\/hydrologic enhancement", "gid": "1FVgt5wMWqBHIBF_0mr6W4DlhmlpMcv_i" }, "geometry": { "type": "Point", "coordinates": [ -94.429566666624325, 33.6978694444418 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream buffer enhancement", "gid": "1q3JPck9TVmI9QMjpsP2c6N8LSchr88V4" }, "geometry": { "type": "Point", "coordinates": [ -94.42954166680272, 33.697869444279064 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream buffer enhancement", "gid": "1RUY3dsgfA-rOckAXN-Axzx8tIa9MwEYq" }, "geometry": { "type": "Point", "coordinates": [ -94.429611110805808, 33.697466666290154 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream buffer enhancement\/hydrologic enhancement", "gid": "1AozfGBrDFDGXw0K3Klgxz93Xx2Fv2pXl" }, "geometry": { "type": "Point", "coordinates": [ -94.431388888958807, 33.694011111178696 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed hydrologic enhancement", "gid": "1f484Kvl2OPuK_XgzazLpx1L_d3Y-nqKa" }, "geometry": { "type": "Point", "coordinates": [ -94.430588888356468, 33.693341666292824 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed hydrologic enhancement\/buffer enhancement", "gid": "1NyfiY2kWJV1OqJH5sQ2lpxoqTli4hENd" }, "geometry": { "type": "Point", "coordinates": [ -94.445222222741521, 33.691966666816938 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1nsWxHS8WdtaPeorsSXfYNk6Zg55nzYBn" }, "geometry": { "type": "Point", "coordinates": [ -94.445136110885528, 33.691883333636838 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1Mux1HQzABHPV44_L-2BgVVafRwQmqn7C" }, "geometry": { "type": "Point", "coordinates": [ -94.430961110744178, 33.698369444887788 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1Uu-80cYYpCDTrTXetX9YV-GlSXfDeY-A" }, "geometry": { "type": "Point", "coordinates": [ -94.431227778011873, 33.6983388884371 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed hydrologic enhancement\/buffer enhancement", "gid": "1ThnX5A8x-9Dbt2EmWGKTNLmelEpAbOo-" }, "geometry": { "type": "Point", "coordinates": [ -94.445038889402028, 33.692183333334853 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": null, "gid": "1QQlmJXx71ZycoAY7ad6us_SmprLI37zV" }, "geometry": { "type": "Point", "coordinates": [ -94.428986111065498, 33.698380555896883 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": null, "gid": "1i0rTlR5GlL7Q3-B7BeHuwCtowTQMlwXc" }, "geometry": { "type": "Point", "coordinates": [ -94.428994444179366, 33.69836944457316 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": null, "gid": "1qvPiW8ikFO9CR0-jBSDYGqJLz1xUQv_H" }, "geometry": { "type": "Point", "coordinates": [ -94.429061110803119, 33.698283333376189 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": null, "gid": "1t0ZKXuY1509tfXJyeAuAPczhJ2INMSnY" }, "geometry": { "type": "Point", "coordinates": [ -94.429144444684653, 33.69831111139414 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": null, "gid": "1cgfvxr1_3MP7DI5nCNyjtWWGi4TWndA8" }, "geometry": { "type": "Point", "coordinates": [ -94.429161111536772, 33.698322222067191 ] } },
-{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream buffer enhancement", "gid": "1FUSBGdLkvRnhBfokI7VPHUbPK-0ks1eE" }, "geometry": { "type": "Point", "coordinates": [ -94.43160799965824, 33.69464727803534 ] } },
-{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream buffer enhancement", "gid": "13WDPhhD9SfpEME6flQXoBP4Z2qEn8ipu" }, "geometry": { "type": "Point", "coordinates": [ -94.43497191682755, 33.697242277397038 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream buffer enhancement", "gid": "1tUCoaUSDcYUvK8QcXU9DI_5mQ7iWE-ff" }, "geometry": { "type": "Point", "coordinates": [ -94.429137388877805, 33.699970722314688 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "19np06z0ZXfOUY5UIO5ngO9EZcVt-X9TK" }, "geometry": { "type": "Point", "coordinates": [ -94.431004749411656, 33.697464555365471 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "15x9k8_ol-MqiueDFcXvGvcO2ql6XzT9f" }, "geometry": { "type": "Point", "coordinates": [ -94.431005139121496, 33.69746600008736 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream buffer enhancement", "gid": "12H5a37OngeVmlO9SPwIC6KX-43J0Tof0" }, "geometry": { "type": "Point", "coordinates": [ -94.430801664418212, 33.697100860640887 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1soVvoBQw3dEm9JXTo5JtKbiM3ss0sT3k" }, "geometry": { "type": "Point", "coordinates": [ -94.43159510003251, 33.694661300345039 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed stream buffer enhancement", "gid": "1A3Qs2VB3RCZ22DXsjQh6zN9NznEru2f4" }, "geometry": { "type": "Point", "coordinates": [ -94.431818300282742, 33.694246833448716 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed stream buffer enhancement", "gid": "1qQb8tMuYoM0yv7hBAI_8VEftz758ZkDh" }, "geometry": { "type": "Point", "coordinates": [ -94.431542716274464, 33.693793633088191 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed stream buffer enhancement", "gid": "1lc3TOcieVAMprrTx8OxMV8vGAcYyHHPL" }, "geometry": { "type": "Point", "coordinates": [ -94.430899750450806, 33.693590382937607 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed stream buffer enhancement", "gid": "1V0yFPa-fyzi4NG1i7omy9_LhZbBYHStV" }, "geometry": { "type": "Point", "coordinates": [ -94.429344083760569, 33.69536158342698 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": null, "gid": "1u1th076AsQXc22afGTCNH8yClKjPzNcE" }, "geometry": { "type": "Point", "coordinates": [ -94.428249933676199, 33.692735667102582 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream buffer enhancement", "gid": "1tyVQ0QvDL3CBp5P18wkZp0FwUzqBWpk9" }, "geometry": { "type": "Point", "coordinates": [ -94.43080911107289, 33.698333027681329 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream buffer enhancement", "gid": "1bw1j2xTeyGSJvafmRCcU9jpDO5zJmT6_" }, "geometry": { "type": "Point", "coordinates": [ -94.430022861394477, 33.700901333295995 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream buffer enhancement", "gid": "1cWMrdYnXjJwKXv9bYKzSKveUG1CJYpBP" }, "geometry": { "type": "Point", "coordinates": [ -94.430021166689073, 33.700900833463784 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream buffer enhancement", "gid": "10Pv1KxxVxOZNXYiLMV6Go0Uq5Do5CjX6" }, "geometry": { "type": "Point", "coordinates": [ -94.430561361639022, 33.699732472220944 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization", "gid": "1mcKa6rBy_Gn8G5AqjZo5CUmVrCl3HwS0" }, "geometry": { "type": "Point", "coordinates": [ -94.43179539649185, 33.702652784995522 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization", "gid": "1UYplp4coeM_CPqheCp_eJlLgTTC-JcTA" }, "geometry": { "type": "Point", "coordinates": [ -94.431687903741803, 33.703142264547402 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream preservation", "gid": "1p6gbauj1FPCJuqd5PAPWARJuiD_4wTkE" }, "geometry": { "type": "Point", "coordinates": [ -94.432628999577943, 33.705619000335609 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream buffer enhancement", "gid": "1TonQzsFtEyJBO4qbmbwUeh2ZAhNuBzZe" }, "geometry": { "type": "Point", "coordinates": [ -94.431728000352578, 33.703346000338541 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1j99sHsItdP41lnfNLt8fCHof9SyaRlke" }, "geometry": { "type": "Point", "coordinates": [ -94.428745999744393, 33.704495999966618 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream bank stabilization", "gid": "1gosInp3xK9dq-DUVRpiY9Lyqm17Dnriu" }, "geometry": { "type": "Point", "coordinates": [ -94.428475000188641, 33.703702999947048 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1O-MWoob1TC22i2suiZ4K7FHmpuTPPdNN" }, "geometry": { "type": "Point", "coordinates": [ -94.427867000282063, 33.705340000139813 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream buffer enhancement", "gid": "1GHMrCyOWLuBgF2eb7qKuvuJFTD1Rbs9j" }, "geometry": { "type": "Point", "coordinates": [ -94.427353000293706, 33.702776000277538 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream buffer enhancement", "gid": "15oWiaKO0Bjn-DsnOd6V8YM5fnACMXwot" }, "geometry": { "type": "Point", "coordinates": [ -94.428573000501089, 33.702002000180386 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "16rNTcLEf5A9tlv9qZBENDXpcrb48hrSG" }, "geometry": { "type": "Point", "coordinates": [ -94.429600000324143, 33.693089000408641 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "16MjO1UWSjA_B19hhGC83uSRS_jRBN4HU" }, "geometry": { "type": "Point", "coordinates": [ -94.429804000449082, 33.692909000020755 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1-623N65Hhi51GDmuxRzSI8f83X3RZ2im" }, "geometry": { "type": "Point", "coordinates": [ -94.429370000493307, 33.692465999603165 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1dn1-n1htpi--nBFO1fk0ZD9yifhLhzrm" }, "geometry": { "type": "Point", "coordinates": [ -94.431539000320527, 33.694681999906287 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1d6oJogzJ3jT3iDdnz45XcQuSPjR1R1WL" }, "geometry": { "type": "Point", "coordinates": [ -94.430618000188147, 33.693381999793559 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed hydrologic enhancement", "gid": "19zK3AcuIvL9QWeLHKiIxnF8DDeLP2AWc" }, "geometry": { "type": "Point", "coordinates": [ -94.428384000299943, 33.692494999900568 ] } },
-{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream buffer enhancement", "gid": "1B5vYYXXfhgV-UsylnOJ-K1axo4ap9TIn" }, "geometry": { "type": "Point", "coordinates": [ -94.431833999758766, 33.69418599995975 ] } },
-{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream buffer enhancement", "gid": "1eLskh9vNgUtjRDEBxQRulrwGzsBeqwAl" }, "geometry": { "type": "Point", "coordinates": [ -94.432936000089768, 33.695079000246309 ] } },
-{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream buffer enhancement", "gid": "1y0jLGi5KD2mibLvmt2KsOxTO-GoE6OG-" }, "geometry": { "type": "Point", "coordinates": [ -94.433246999638357, 33.696192999756008 ] } },
-{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream buffer enhancement", "gid": "1TEf15RQaA0Ve9p74dzPCiAs9b3J-zn2K" }, "geometry": { "type": "Point", "coordinates": [ -94.434413000106233, 33.697105999847054 ] } },
-{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1XRccmU3j_LDJx_mJ2ZakA1k75slJDiZl" }, "geometry": { "type": "Point", "coordinates": [ -94.434443999762792, 33.697030000038147 ] } },
-{ "type": "Feature", "properties": { "COLOR": "DarkBlue", "descriptio": "proposed stream buffer enhancement", "gid": "1R8ZHYC0axKb_yoBBbpEsTdyUFc_RFFUW" }, "geometry": { "type": "Point", "coordinates": [ -94.435828000209824, 33.697995999848509 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1i9nTPGigRy-cLnEqbVO98Ql7_3h_DIMU" }, "geometry": { "type": "Point", "coordinates": [ -94.432019999693239, 33.700870999921008 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1QZKAhax-NiaeqW_FickBhe6u82t9ypcY" }, "geometry": { "type": "Point", "coordinates": [ -94.4315880003617, 33.699352999561512 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "12a5zah3teS4d9mdsD0CCzl2qjzWSgwoK" }, "geometry": { "type": "Point", "coordinates": [ -94.430967999462766, 33.698774999752722 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1hWvj4UNBLStZTFdUZa688IoyN1xdfcJt" }, "geometry": { "type": "Point", "coordinates": [ -94.431156000045121, 33.697664999977981 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1-FYYCqRTKruYrfPZLfppWjzHmZBR8LDr" }, "geometry": { "type": "Point", "coordinates": [ -94.430584000464179, 33.697097999547267 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed hydrologic enhancement\/bank stabilization", "gid": "195f-D7zxZA-WYywRWP1hgVZMg6p-iwTk" }, "geometry": { "type": "Point", "coordinates": [ -94.429428000172365, 33.695680000159591 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed stream buffer enhancement\/hydrologic enhancement", "gid": "1y7DqgA3fToFD19GUQmWoc0zwN84KxSY5" }, "geometry": { "type": "Point", "coordinates": [ -94.429191000495223, 33.694683000291363 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed hydrologic enhancement", "gid": "1WGPeIy5CJIrfwe7GWniOmD3Cm8erIfNF" }, "geometry": { "type": "Point", "coordinates": [ -94.428654000348089, 33.694041999682312 ] } },
 { "type": "Feature", "properties": { "COLOR": "Yellow", "descriptio": "proposed stream buffer enhancement", "gid": "16xeT5zZHUUGkWXfk5zIYPHZhkhMlI5-C" }, "geometry": { "type": "Point", "coordinates": [ -94.444208000047198, 33.692410000349092 ] } },
 { "type": "Feature", "properties": { "COLOR": "Yellow", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1DU36v9VHh-QKtqgf_7bKxFXXy7F6H_aT" }, "geometry": { "type": "Point", "coordinates": [ -94.443974999644794, 33.692082000112478 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream buffer enhancement", "gid": "1Bzs25Ap-gzx05ATCwcyDm8e1u0RCTJ7C" }, "geometry": { "type": "Point", "coordinates": [ -94.44203900026119, 33.698852999774253 ] } },
 { "type": "Feature", "properties": { "COLOR": "Yellow", "descriptio": "proposed stream buffer enhancement\/hydrologic enhancement", "gid": "1rFroH3gqdHTMsXqOhNwZ4C36Mwc4FVEx" }, "geometry": { "type": "Point", "coordinates": [ -94.441026000199685, 33.693587999689662 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream buffer enhancement", "gid": "1R9fgVGTVgBpGfNxyWUSYlaDb6FgPzMGT" }, "geometry": { "type": "Point", "coordinates": [ -94.44140600040636, 33.697186999911459 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "11P5iPJ5jj5eaw-b2MWY71AsM1rjg8vNX" }, "geometry": { "type": "Point", "coordinates": [ -94.428434999839411, 33.692980999830489 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1R3vk_PP3JpbnGTgPUkkmPFUiaY_9QTtr" }, "geometry": { "type": "Point", "coordinates": [ -94.430584000464179, 33.697097999547267 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightBlue", "descriptio": "proposed stream preservation", "gid": "1tge2tgZpCf8vwriZBZ_tc3h0NxzcMGUu" }, "geometry": { "type": "Point", "coordinates": [ -94.429428000172365, 33.695680000159591 ] } },
 { "type": "Feature", "properties": { "COLOR": "Yellow", "descriptio": "proposed stream buffer enhancement", "gid": "1ybIUiDBskz4O3F9WFl2fYXNORBkes7Em" }, "geometry": { "type": "Point", "coordinates": [ -94.443974999644794, 33.692082000112478 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream buffer enhancement\/hydrologic enhancement", "gid": "11e0Hj-uRLGgE2fCg9m8-0Da5nj7hq8Ks" }, "geometry": { "type": "Point", "coordinates": [ -94.44203900026119, 33.698852999774253 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Yellow", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "17RoxpYP6qtBtU_Wu6DdO-vAHDpa_rb5U" }, "geometry": { "type": "Point", "coordinates": [ -94.441026000199685, 33.693587999689662 ] } },
-{ "type": "Feature", "properties": { "COLOR": "LightGreen", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "15pjNYP1MjiQeDxNcWs1Ka2k976S_0e-p" }, "geometry": { "type": "Point", "coordinates": [ -94.44140600040636, 33.697186999911459 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "11VXYxv0XAVAzeAlmkX2G91HZEKMB6hnZ" }, "geometry": { "type": "Point", "coordinates": [ -94.428434999839411, 33.692980999830489 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1G9rHljo1mbx1g9Q0Z1E7FmTEyxVHhtVZ" }, "geometry": { "type": "Point", "coordinates": [ -94.43179539649185, 33.702652784995522 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed stream bank stabilization", "gid": "1khpXE8rlf20GxrqvcFjvUSL2wbrV2OAu" }, "geometry": { "type": "Point", "coordinates": [ -94.432628999577943, 33.705619000335609 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream bank stabilization", "gid": "1WMFiDQc26WoZLIHbKHiV8X0C4czlPhmx" }, "geometry": { "type": "Point", "coordinates": [ -94.428475000188641, 33.703702999947048 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed hydrologic enhancement\/buffer enhancement", "gid": "1iTw-jV5MRQU0-o9jOObya16dF7GQfLju" }, "geometry": { "type": "Point", "coordinates": [ -94.427867000282063, 33.705340000139813 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream buffer enhancement", "gid": "1OXnVvJ_whdU2-w3_H5aahJUHcVRmAdGu" }, "geometry": { "type": "Point", "coordinates": [ -94.427353000293706, 33.702776000277538 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1JalaWv7rBYCG-qt6qu_eBlo6ffCenzkw" }, "geometry": { "type": "Point", "coordinates": [ -94.428573000501089, 33.702002000180386 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1rbWUljOwlnz17TH-eFCgHKW-Egs9Nx_m" }, "geometry": { "type": "Point", "coordinates": [ -94.429804000449082, 33.692909000020755 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Pink", "descriptio": "proposed stream buffer enhancement", "gid": "1Ig3WZ4thghzb2sYWunJgrlBkFeEBzv30" }, "geometry": { "type": "Point", "coordinates": [ -94.431539000320527, 33.694681999906287 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Purple", "descriptio": "proposed hydrologic enhancement", "gid": "1Ls6_IogQPrzcxMtycaql8NSkyqKM5sR9" }, "geometry": { "type": "Point", "coordinates": [ -94.428384000299943, 33.692494999900568 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed hydrologic enhacement", "gid": "1iP1O2Sjx56HKavdkYm0DfodyfZCQFkTu" }, "geometry": { "type": "Point", "coordinates": [ -94.431728000352578, 33.703346000338541 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "1l9whcMIqXVGK0s_KlxECd8lEX_cGB_cl" }, "geometry": { "type": "Point", "coordinates": [ -94.428745999744393, 33.704495999966618 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Red", "descriptio": "proposed hydrologic enhacement", "gid": "1Zv6Pq0yzXVkwVmBwJuKWF1Xn9abEGnA4" }, "geometry": { "type": "Point", "coordinates": [ -94.431728000352578, 33.703346000338541 ] } },
-{ "type": "Feature", "properties": { "COLOR": "Green", "descriptio": "proposed hydrologic enhancement\/buffer enhancement", "gid": "1NR9oSsKja-s68ABRRZ3t-kA6mJ3B_Lvu" }, "geometry": { "type": "Point", "coordinates": [ -94.428745999744393, 33.704495999966618 ] } }
+{ "type": "Feature", "properties": { "COLOR": "Yellow", "descriptio": "proposed stream bank stabilization\/buffer enhancement", "gid": "17RoxpYP6qtBtU_Wu6DdO-vAHDpa_rb5U" }, "geometry": { "type": "Point", "coordinates": [ -94.441026000199685, 33.693587999689662 ] } }
 ]
 }
 
 
 
 
+var DarkBlueIcon = L.icon({
+    iconUrl: 'DarkBlueIcon.svg',
+    iconSize: [30, 30]
+})
 
-var projectMarkers = L.markerClusterGroup({
-  /*
+var DarkBlueMarkers = L.markerClusterGroup({
+
   iconCreateFunction: function (cluster) {
     var markers = cluster.getAllChildMarkers();
 
     var html = '<div class="circle">' + markers.length + '</div>'
-    return L.divIcon({ html: html, className: 'mycluster', iconSize: L.point(40, 40) });
+    return L.divIcon({ html: html, className: 'DarkBluecluster', iconSize: L.point(30, 30) });
   },
-  */
+
 });
-var gbmcpics = L.geoJSON(gbmcpics, {
+var DarkBlue = L.geoJSON(DarkBlue, {
   onEachFeature: function(feature, layer){
+    layer.setIcon(DarkBlueIcon);
     layer.on({
       click: function (e) {
         $("#feature_modal").modal("show");
+        $("#feature_modal_title").html(feature.properties.COLOR);
         $('#feature_modal_body').html('<iframe src="https://drive.google.com/file/d/' + feature.properties.gid + '/preview"></iframe><br><p>' + feature.properties.descriptio + '</p>' );
       }
     })
-  /*  layer.setIcon(L.AwesomeMarkers.icon({
-      prefix: 'fa', //font awesome rather than bootstrap
-      markerColor: 'red', // see colors above
-      icon: 'bacon', //http://fortawesome.github.io/Font-Awesome/icons/
-      iconColor: 'white',
-      spin: true
-    })) */
-    /*
-    if (feature.properties.COLOR == 'DarkBlue') {
-      layer.setIcon(ongoing_project_icon);
-    }
-    else if (feature.properties.COLOR == 'Yellow') {
-      layer.setIcon(completed_project_icon);
-    }
-    */
+
   }
-}).addTo(projectMarkers)
+}).addTo(DarkBlueMarkers)
 
-$.getJSON("gbmcpics.geojson", function (data){
-  gbmcpics.addData(data);
+
+map.addLayer(DarkBlueMarkers);
+
+
+
+var GreenIcon = L.icon({
+    iconUrl: 'GreenIcon.svg',
+    iconSize: [30, 30]
+})
+
+
+var GreenMarkers = L.markerClusterGroup({
+
+  iconCreateFunction: function (cluster) {
+    var markers = cluster.getAllChildMarkers();
+
+    var html = '<div class="circle">' + markers.length + '</div>'
+    return L.divIcon({ html: html, className: 'Greencluster', iconSize: L.point(30, 30) });
+  },
+
 });
+var Green = L.geoJSON(Green, {
+  onEachFeature: function(feature, layer){
+    layer.setIcon(GreenIcon);
+    layer.on({
+      click: function (e) {
+        $("#feature_modal").modal("show");
+        $("#feature_modal_title").html(feature.properties.COLOR);
+        $('#feature_modal_body').html('<iframe src="https://drive.google.com/file/d/' + feature.properties.gid + '/preview"></iframe><br><p>' + feature.properties.descriptio + '</p>' );
+      }
+    })
 
-map.addLayer(projectMarkers);
+  }
+}).addTo(GreenMarkers)
+
+map.addLayer(GreenMarkers);
+
+var LightBlueIcon = L.icon({
+    iconUrl: 'LightBlueIcon.svg',
+    iconSize: [30, 30]
+})
 
 
+var LightBlueMarkers = L.markerClusterGroup({
+
+  iconCreateFunction: function (cluster) {
+    var markers = cluster.getAllChildMarkers();
+
+    var html = '<div class="circle">' + markers.length + '</div>'
+    return L.divIcon({ html: html, className: 'LightBluecluster', iconSize: L.point(30, 30) });
+  },
+
+});
+var LightBlue = L.geoJSON(LightBlue, {
+  onEachFeature: function(feature, layer){
+    layer.setIcon(LightBlueIcon);
+    layer.on({
+      click: function (e) {
+        $("#feature_modal").modal("show");
+        $("#feature_modal_title").html(feature.properties.COLOR);
+        $('#feature_modal_body').html('<iframe src="https://drive.google.com/file/d/' + feature.properties.gid + '/preview"></iframe><br><p>' + feature.properties.descriptio + '</p>' );
+      }
+    })
+
+  }
+}).addTo(LightBlueMarkers)
+
+map.addLayer(LightBlueMarkers);
+
+var LightGreenIcon = L.icon({
+    iconUrl: 'LightGreenIcon.svg',
+    iconSize: [30, 30]
+})
+
+
+var LightGreenMarkers = L.markerClusterGroup({
+
+  iconCreateFunction: function (cluster) {
+    var markers = cluster.getAllChildMarkers();
+
+    var html = '<div class="circle">' + markers.length + '</div>'
+    return L.divIcon({ html: html, className: 'LightGreencluster', iconSize: L.point(30, 30) });
+  },
+
+});
+var LightGreen = L.geoJSON(LightGreen, {
+  onEachFeature: function(feature, layer){
+    layer.setIcon(LightGreenIcon);
+    layer.on({
+      click: function (e) {
+        $("#feature_modal").modal("show");
+        $("#feature_modal_title").html(feature.properties.COLOR);
+        $('#feature_modal_body').html('<iframe src="https://drive.google.com/file/d/' + feature.properties.gid + '/preview"></iframe><br><p>' + feature.properties.descriptio + '</p>' );
+      }
+    })
+
+  }
+}).addTo(LightGreenMarkers)
+
+map.addLayer(LightGreenMarkers);
+
+
+var PinkIcon = L.icon({
+    iconUrl: 'PinkIcon.svg',
+    iconSize: [30, 30]
+})
+
+
+var PinkMarkers = L.markerClusterGroup({
+
+  iconCreateFunction: function (cluster) {
+    var markers = cluster.getAllChildMarkers();
+
+    var html = '<div class="circle">' + markers.length + '</div>'
+    return L.divIcon({ html: html, className: 'Pinkcluster', iconSize: L.point(30, 30) });
+  },
+
+});
+var Pink = L.geoJSON(Pink, {
+  onEachFeature: function(feature, layer){
+    layer.setIcon(PinkIcon);
+    layer.on({
+      click: function (e) {
+        $("#feature_modal").modal("show");
+        $("#feature_modal_title").html(feature.properties.COLOR);
+        $('#feature_modal_body').html('<iframe src="https://drive.google.com/file/d/' + feature.properties.gid + '/preview"></iframe><br><p>' + feature.properties.descriptio + '</p>' );
+      }
+    })
+
+  }
+}).addTo(PinkMarkers)
+
+map.addLayer(PinkMarkers);
+
+var PurpleIcon = L.icon({
+    iconUrl: 'PurpleIcon.svg',
+    iconSize: [30, 30]
+})
+
+
+var PurpleMarkers = L.markerClusterGroup({
+
+  iconCreateFunction: function (cluster) {
+    var markers = cluster.getAllChildMarkers();
+
+    var html = '<div class="circle">' + markers.length + '</div>'
+    return L.divIcon({ html: html, className: 'Purplecluster', iconSize: L.point(30, 30) });
+  },
+
+});
+var Purple = L.geoJSON(Purple, {
+  onEachFeature: function(feature, layer){
+    layer.setIcon(PurpleIcon);
+    layer.on({
+      click: function (e) {
+        $("#feature_modal").modal("show");
+        $("#feature_modal_title").html(feature.properties.COLOR);
+        $('#feature_modal_body').html('<iframe src="https://drive.google.com/file/d/' + feature.properties.gid + '/preview"></iframe><br><p>' + feature.properties.descriptio + '</p>' );
+      }
+    })
+
+  }
+}).addTo(PurpleMarkers)
+
+map.addLayer(PurpleMarkers);
+
+var RedIcon = L.icon({
+    iconUrl: 'RedIcon.svg',
+    iconSize: [30, 30]
+})
+
+
+var RedMarkers = L.markerClusterGroup({
+
+  iconCreateFunction: function (cluster) {
+    var markers = cluster.getAllChildMarkers();
+
+    var html = '<div class="circle">' + markers.length + '</div>'
+    return L.divIcon({ html: html, className: 'Redcluster', iconSize: L.point(30, 30) });
+  },
+
+});
+var Red = L.geoJSON(Red, {
+  onEachFeature: function(feature, layer){
+    layer.setIcon(RedIcon);
+    layer.on({
+      click: function (e) {
+        $("#feature_modal").modal("show");
+        $("#feature_modal_title").html(feature.properties.COLOR);
+        $('#feature_modal_body').html('<iframe src="https://drive.google.com/file/d/' + feature.properties.gid + '/preview"></iframe><br><p>' + feature.properties.descriptio + '</p>' );
+      }
+    })
+
+  }
+}).addTo(RedMarkers)
+
+map.addLayer(RedMarkers);
+
+var YellowIcon = L.icon({
+    iconUrl: 'YellowIcon.svg',
+    iconSize: [30, 30]
+})
+
+
+var YellowMarkers = L.markerClusterGroup({
+
+  iconCreateFunction: function (cluster) {
+    var markers = cluster.getAllChildMarkers();
+
+    var html = '<div class="circle">' + markers.length + '</div>'
+    return L.divIcon({ html: html, className: 'Yellowcluster', iconSize: L.point(30, 30) });
+  },
+
+});
+var Yellow = L.geoJSON(Yellow, {
+  onEachFeature: function(feature, layer){
+    layer.setIcon(YellowIcon);
+    layer.on({
+      click: function (e) {
+        $("#feature_modal").modal("show");
+        $("#feature_modal_title").html(feature.properties.COLOR);
+        $('#feature_modal_body').html('<iframe src="https://drive.google.com/file/d/' + feature.properties.gid + '/preview"></iframe><br><p>' + feature.properties.descriptio + '</p>' );
+      }
+    })
+
+  }
+}).addTo(YellowMarkers)
+
+map.addLayer(YellowMarkers);
 
 /* AGIO Geocoder
 var agioGeocoder = window.L.esri.Geocoding.geocodeServiceProvider({

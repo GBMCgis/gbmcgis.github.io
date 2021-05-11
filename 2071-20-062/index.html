@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>2071-20-062</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+   <link rel="stylesheet" href="css/leaflet.groupedlayercontrol.css">
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+   <script src="https://unpkg.com/esri-leaflet/dist/esri-leaflet.js"></script>
+   <script src="js/leaflet.groupedlayercontrol.js"></script>
+   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+   <script src="data/lab_data.js"></script>
+   <script src="data/sampling.js"></script>
+   <script src="data/conductivity.js"></script>
+   <script src="data/watersheds.js"></script>
+   <style>
+     html, body {
+         padding: 0px;
+         margin: 0px;
+     }
+     html, body {
+         width: 100%;
+         height: 100%;
+     }
+     #map {
+         width: 100%;
+         height: 100%;
+     }
+     #plot {
+         width: 100%;
+         height: 30%;
+         background: #1E1E1E;
+         /*background: #848482;*/
+     }
+     .leaflet-control-layers {
+       background: rgba(242,243,244,0.9);
+     }
+     .leaflet-popup-content {
+       width: auto !important;
+     }
+     #sampleline {
+       fill: none;
+       stroke: #F3C300;
+       stroke-width: 1.5px;
+     }
+     #sampleline2 {
+       fill: none;
+       stroke: #F3C300;
+       stroke-width: 1.5px;
+     }
+     .line {
+       fill: none;
+       stroke: steelblue;
+       stroke-width: 1.5px;
+      }
+      .axis{
+        fill: white;
+        shape-rendering: crispEdges;
+      }
+      .domain{
+        fill: none;
+        stroke: white;
+        stroke-width: .8px;
+      }
+      .modal .domain{
+        fill: none;
+        stroke: black;
+        stroke-width: .8px;
+      }
+      .modal .tick{
+        fill: none;
+        stroke: black;
+        stroke-width: .5px;
+      }
+      #scatterpoint {
+        fill: steelblue;
+      }
+      .tick{
+        fill: none;
+        stroke: white;
+        stroke-width: .5px;
+      }
+      .zoom {
+       cursor: move;
+       fill: none;
+       pointer-events: all;
+      }
+      .dataTables_length {
+        color: #F2F3F4;
+      }
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #D4D8DA;
+      stroke-width: 2px;
+      shape-rendering: crispEdges;
+      }
+      .overlay {
+        fill: none;
+        pointer-events: all;
+      }
+
+      .focus circle {
+        fill: #F1F3F3;
+        stroke: #6F257F;
+        stroke-width: 5px;
+      }
+
+      .hover-line {
+        stroke: #6F257F;
+        stroke-width: 2px;
+        stroke-dasharray: 3,3;
+      }
+      .dataTables_length {
+        color: #F2F3F4;
+      }
+
+      #plot.g.domain {
+        color: #F2F3F4;
+      }
+
+      div.tooltip {
+        position: absolute;
+        text-align: center;
+        width: 200px;
+        height: 28px;
+        padding: 2px;
+        font: 12px sans-serif;
+        background: lightsteelblue;
+        border: 0px;
+        border-radius: 8px;
+        pointer-events: none;
+      }
+      .modal-dialog{
+          position: relative;
+          display: table; /* This is important */
+          overflow-y: auto;
+          overflow-x: auto;
+          width: auto;
+          min-width: 300px;
+      }
+      .circle {
+        fill: steelblue;
+      }
+      #axistext {
+        fill: steelblue;
+      }
+      #sampling_table {
+        width: 50%;
+      }
+   </style>
+</head>
+
+<body id="body">
+  <div class="modal fade" id="featureModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title text-primary" id="feature-title"></h4></br>
+        </div>
+        <div class="modal-body" id="feature-info"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <div class="modal fade" id="graphModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title text-primary" id="feature-title"></h4>
+        </div>
+        <div class="modal-body" id="feature-info">
+          Success!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+
+  <div class="modal fade" id="ph_modal" tabindex="-1">
+    <div class="modal-dialog" width="100%">
+      <div class="modal-content" width="100%">
+        <div class="modal-header">
+          <h4 class="modal-title text-primary" id="ph_title"></h4>
+        </div>
+        <div class="modal-body" id="ph_info" width="100%"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+<div id="map"></div>
+<!--<div id="plot"></div>-->
+
+<script>
+var map = L.map('map').setView([33.18225044983899, -92.93791741132738], 19);
+
+// Basemaps
+$('.leaflet-control-attribution').hide()
+
+
+///ESRI Aerial
+var esri_aerial_firefly = L.esri.basemapLayer('ImageryFirefly');
+var esri_aerial_clarity = L.esri.basemapLayer('ImageryClarity');
+
+/// ADOP
+var adop = L.esri.imageMapLayer({
+  url: 'https://gis.arkansas.gov/arcgis/rest/services/ImageServices/IMAGERY_1FT_2017/ImageServer'
+}).addTo(map);
+
+///OSM
+var osm = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+	maxZoom: 18,
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+})
+
+///Hillshade DEM
+var renderingRule = {
+  "rasterFunction":"Hillshade",
+  "rasterFunctionArguments": {
+    "Azimuth":315,
+    "Altitude":45,
+    "ZFactor":1
+  },"variableName":"DEM"
+};
+
+var dem = L.esri.imageMapLayer({
+  url: 'http://gis.arkansas.gov/arcgis/rest/services/ImageServices/DEM_1M_2018/ImageServer',
+  renderingRule: renderingRule
+});
+
+
+
+
+/***********************************************************/
+// In-Situ Sampling Locations
+var sampling_icon = L.icon({
+    iconUrl: 'img/sampling.png',
+    iconSize: [18, 18]
+})
+
+function onEachFeature(feature, layer) {
+
+
+
+  var NAME = feature.properties.Event.map(function(d) { return d.NAME; });
+  var DATE = feature.properties.Event.map(function(d) { return d.DATE; });
+  var LEAD = feature.properties.Event.map(function(d) { return d.LEAD; });
+  var TSS = feature.properties.Event.map(function(d) { return d.TSS; });
+  var PH = feature.properties.Event.map(function(d) { return d.PH; });
+  var table_open = "<h3>" + feature.properties.NAME + "</h3><br><table id='newtable' class='table'><thead><tr><th>Date</th><th>Lead (µg/L)</th><th>TSS(mg/L)</th><th>pH (S.U.)</th></tr></thead>"
+  var table_body = ""
+  var table_close = "</table>"
+  for (i=0;i<feature.properties.Event.length;i++){
+    var row = "<tr><td>" + DATE[i]
+    + "</td><td>" + LEAD[i]
+    + "</td><td>" + TSS[i]
+    + "</td><td>" + PH[i]
+    + "</td></tr>"
+    var table_body = table_body+row
+  }
+  var displayedInfo = table_open+table_body+table_close
+  layer.bindTooltip(displayedInfo, {opacity: 0.8})
+    /*
+    var displayedInfo = feature.properties.station_id + "<br>"
+    + date + "<br>"
+    + time + "<br>"
+    + field_crew + "<br>"
+    + cbod + "<br>"
+    + tds + "<br>"
+    + chlorides + "<br>"
+    + notes + "<br>";
+    */
+    layer.setIcon(sampling_icon)
+    //layer.bindPopup(time)
+    //var popup_content = "<thead>" + feature.properties.station_id + "</thead><img src='img/" + feature.properties.station_id +  ".png' width='480' height='480'> "
+    //layer.bindPopup(popup_content)
+    layer.on({
+        click: function (e) {
+
+
+          var graph_link = "</br><a data-toggle='modal' href='#ph_modal'>Lead Sampling</a>"
+          var popup_content = feature.properties.NAME
+
+
+          //$('#plot').html("<font color='grey'>" + displayedInfo + "</font>");
+          $('#sampling_table').DataTable({
+            bPaginate: false,
+            bFilter: false,
+            bInfo: false,
+            bOrdering: false
+          });
+          //$(document).ready(function() {
+          //    var table = $('#sampling_table').dataTable();
+          //    table.on('click', 'th', function() {
+          //      $('#plot').html("<font color='grey'>" + d_o + "</font>");
+          //    });
+          //});
+          $("#feature-title").html(feature.properties.PMTNBR);
+          $("#feature-info").html(popup_content + graph_link);
+          //$("#featureModal").modal("show");
+          $("#ph_modal").modal("show");
+
+
+                    //$('#ph_modal').on('shown.bs.modal', function (e) {
+                      $("#ph_info").html("");
+                      $('#ph_title').html(feature.properties.NAME + ": Lead (µg/L)");
+
+                      var hh = $("#ph_info").css('height').replace("px", "");
+                      var ww = $("#ph_info").css('width').replace("px", "");
+                      var margin = {top: 22, right: 20, bottom: 32, left: 52},
+                          width = 800 - margin.left - margin.right,
+                          height = 300 - margin.top - margin.bottom;
+
+                      // parse the date / time
+                      var parseTime = d3.timeParse("%Y-%m-%d");
+                      var formatTime = d3.timeFormat("%Y-%m-%d");
+
+                      // set the ranges
+                      var x = d3.scaleTime().range([6, width]);
+                      var y = d3.scaleLinear().range([height, 0]);
+
+                      // define the line
+
+                      var div = d3.select("#ph_modal").append("div")
+                          .attr("class", "tooltip")
+                          .style("opacity", 0);
+
+                      // append the svg obgect to the body of the page
+                      // appends a 'group' element to 'svg'
+                      // moves the 'group' element to the top left margin
+                      var svg = d3.select("#ph_info").append("svg")
+                          .attr("width", width + margin.left + margin.right)
+                          .attr("height", height + margin.top + margin.bottom)
+                        .append("g")
+                          .attr("transform",
+                                "translate(" + margin.left + "," + margin.top + ")");
+
+                      // Get the min data
+                      var data = feature.properties.Event.map(function(d) { return {
+                        "date": parseTime(d.DATE),
+                        "close": parseFloat(d.LEAD)
+                        }
+                      })
+
+                      /*
+                      data.forEach(function(d) {
+                        var x_date = (new Date(d.Date)).getTime();
+                        if (x_date > (new Date('2018-12-13 11:25:00')).getTime() &&
+                            x_date < (new Date('2018-12-13 14:05:00')).getTime()){
+                            sampling_event_1.push(d);
+                        }
+                      });
+                      */
+                        // scale the range of the data
+                        x.domain(d3.extent(data, function(d) { return d.date; }));
+                        y.domain([0, 40]);
+
+                        // Add the line
+                        svg.append("path")
+                          .datum(data)
+                          .attr("fill", "none")
+                          .attr("stroke", "steelblue")
+                          .attr("stroke-width", 1.5)
+                          .attr("d", d3.line()
+                            .x(function(d) { return x(d.date) })
+                            .y(function(d) { return y(d.close) })
+                            )
+
+                        // add the valueline path.
+                        //svg.append("path")
+                        //   .data([data])
+                        //   .attr("class", "line")
+                        //   .attr("d", valueline);
+
+                        // add the dots with tooltips
+                        svg.selectAll("dot")
+                           .data(data)
+                         .enter().append("circle")
+                         .filter(function(d) {return d.close > 0})
+                           .attr("r", 4)
+                           .attr("cx", function(d) { return x(d.date); })
+                           .attr("cy", function(d) { return y(d.close); })
+                           .attr("id","scatterpoint")
+                           .style("fill", "red")
+
+
+                           .on("mouseover", function(d) {
+                             div.transition()
+                               .duration(200)
+                               .style("opacity", .9);
+                             div.html("Date:<b> " + formatTime(d.date) + "</b><br/>Lead:<b> " + d.close + " µg/L</b>")
+                               .style("left", (d3.event.pageX) + "px")
+                               .style("top", (d3.event.pageY - 28) + "px");
+                             })
+                           .on("mouseout", function(d) {
+                             div.transition()
+                               .duration(500)
+                               .style("opacity", 0);
+                             });
+
+                        // add the X Axis
+                        svg.append("g")
+                            .attr("transform", "translate(0," + height + ")")
+                            .call(d3.axisBottom(x));
+
+                        // text label for the x axis
+                        svg.append("text")
+                            .attr("transform",
+                                  "translate(" + (width/2) + " ," +
+                                                 (height + margin.top + 10) + ")")
+                             .attr("id",'axistext')
+                            .style("text-anchor", "middle")
+                            .text("Date");
+
+                        // add the Y Axis
+                        svg.append("g")
+                            .call(d3.axisLeft(y));
+
+                        // text label for the y axis
+                        svg.append("text")
+                            .attr("transform", "rotate(-90)")
+                            .attr("y", -5 - margin.left)
+                            .attr("x",0 - (height / 2))
+                            .attr("dy", "1em")
+                            .attr("id",'axistext')
+                            .style("text-anchor", "middle")
+                            .text("Lead (µg/L))");
+
+
+                    //  });
+
+
+        }
+    });
+}
+//$( "#tds_modal" ).on('hidden.bs.modal', function(){
+//  $("#tds_info").html("<svg id='tds_svg' width='100%' height='100%'></svg>");
+//});
+var sampling_locations = L.geoJSON(sampling, {
+  onEachFeature: onEachFeature,
+  style: {
+    opacity: .5
+  }
+}).addTo(map);
+
+
+
+
+//Conductivity
+var conductivity_icon = L.icon({
+    iconUrl: 'img/conductivity.png',
+    iconSize: [18, 18],
+    iconColor: 'white'
+})
+
+var conductivity_loggers = L.geoJSON(conductivity, {
+  onEachFeature: function (feature, layer) {
+      //var data = feature.properties.Event.map(function(d) { return parseFloat(d.conductance); });;
+      //var displayedInfo = feature.properties.station_id + "<br>"
+      layer.setIcon(conductivity_icon);
+      layer.on({
+          click: function (e) {
+            var popup_content = "<img src='img/" + feature.properties.station_id +  ".JPG' width='480' height='480'>"
+            //$('#plot').html("<font color='white'>" + feature.properties.station_id + "</font>");
+            $('#plot').html("<svg id='svgplot' width='100%' height='100%'></svg>");
+            $("#feature-title").html(feature.properties.station_id);
+            $("#feature-info").html(popup_content);
+            $("#featureModal").modal("show");
+            //console.log(feature.properties.Event);
+          /*
+            var canvas = d3.select("#plot").append("svg")
+              .attr("width",500)
+              .attr("height", 500)
+
+          canvas.selectAll("rect")
+            .data(feature.properties.Event)
+            .enter()
+              .append("rect")
+              .attr("width", function (d) { return d.conductance; })
+              .attr("height", 48)
+              .attr("y", function (d, i) { return i * 50; })
+              .attr("fill", "blue");
+              */
+              var parseTime = d3.timeParse("%Y-%m-%d %H:%M:%S");
+                  bisectDate = d3.bisector(function(d) { return d.year; }).left;
+
+              var data = feature.properties.Event.map(function(d) { return {
+                "Date": parseTime(d.date_time),
+                "Air_Temp": parseFloat(d.conductance)
+                }
+              })
+
+
+
+              //.domain([timeFormat2.parse('2018-12-13T11:25:00+0000'), timeFormat2.parse('2018-12-13T14:05:00+0000')])
+
+              //var i = d3.timeDay.filter(function(d) { return (date_time.getDate() - 1) % 10 === 0; });
+              //console.log(i);
+            //var hh = $("#plot").css('height').replace("px", "") -5;
+            //var ww = $("#plot").css('width').replace("px", "") -5;
+
+            var hh = $("#svgplot").css('height').replace("px", "");
+            var ww = $("#svgplot").css('width').replace("px", "");
+
+
+            margin2_top = hh / 1.25;
+            //margin_left = ww / 40;
+
+            var svg = d3.select("#svgplot"),
+              margin = {top: 20, right: 20, bottom: 110, left: 40},
+              margin2 = {top: margin2_top, right: 20, bottom: 30, left: 40},
+              width = ww - margin.left - margin.right,
+              height = hh - margin.top - margin.bottom,
+              height2 = hh - margin2.top - margin2.bottom;
+
+
+            var x = d3.scaleTime().range([0, width]),
+                x2 = d3.scaleTime().range([0, width]),
+                y = d3.scaleLinear().range([height, 0]),
+                y2 = d3.scaleLinear().range([height2, 0]);
+
+
+
+            var sampling_event_1 = [];
+
+            data.forEach(function(d) {
+              var x_date = (new Date(d.Date)).getTime();
+              if (x_date > (new Date('2018-12-13 11:25:00')).getTime() &&
+                  x_date < (new Date('2018-12-13 14:05:00')).getTime()){
+                  sampling_event_1.push(d);
+              }
+            });
+
+            var sampling_event_2 = [];
+
+            data.forEach(function(d) {
+              var x_date = (new Date(d.Date)).getTime();
+              if (x_date > (new Date('2019-01-02 14:30:00')).getTime() &&
+                  x_date < (new Date('2019-01-02 17:00:00')).getTime()){
+                  sampling_event_2.push(d);
+              }
+            });
+
+            console.log(sampling_event_1);
+            console.log(sampling_event_2);
+
+
+            var xAxis = d3.axisBottom(x),
+                xAxis2 = d3.axisBottom(x2),
+                yAxis = d3.axisLeft(y);
+
+            var brush = d3.brushX()
+                .extent([[0, 0], [width, height2]])
+                .on("brush end", brushed);
+
+            var zoom = d3.zoom()
+                .scaleExtent([1, Infinity])
+                .translateExtent([[0, 0], [width, height]])
+                .extent([[0, 0], [width, height]])
+                .on("zoom", zoomed);
+
+                var line = d3.line()
+                    .x(function (d) { return x(d.Date); })
+                    .y(function (d) { return y(d.Air_Temp); });
+
+                var line2 = d3.line()
+                    .x(function (d) { return x2(d.Date); })
+                    .y(function (d) { return y2(d.Air_Temp); });
+
+                var clip = svg.append("defs").append("svg:clipPath")
+                    .attr("id", "clip")
+                    .append("svg:rect")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .attr("x", 0)
+                    .attr("y", 0);
+
+                var Line_chart = svg.append("g")
+                    .attr("class", "focus")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                    .attr("clip-path", "url(#clip)");
+
+                var focus = svg.append("g")
+                    .attr("class", "focus")
+                    //.attr("stroke", "white")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+              var context = svg.append("g")
+                  .attr("class", "context")
+                  .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+                x.domain(d3.extent(data, function(d) { return d.Date; }));
+                y.domain([0, d3.max(data, function (d) { return d.Air_Temp; })]);
+                x2.domain(x.domain());
+                y2.domain(y.domain());
+
+
+                  focus.append("g")
+                      .attr("class", "axis axis--x")
+                      .attr("transform", "translate(0," + height + ")")
+                      .attr("stroke", "white")
+                      .attr("stroke-width", ".4")
+                      .call(xAxis);
+
+                  focus.append("g")
+                      .attr("class", "axis axis--y")
+                      //.attr("stroke", "white")
+                      .attr("stroke-width", ".4")
+                      .call(yAxis);
+
+
+                  Line_chart.append("path")
+                      .datum(data)
+                      .attr("class", "line")
+                      .attr("d", line);
+                  Line_chart.append("path")
+                      .datum(sampling_event_1)
+                      .attr("class", "line")
+                      .attr("id", "sampleline")
+                      .attr("d", line);
+                  Line_chart.append("path")
+                      .datum(sampling_event_2)
+                      .attr("class", "line")
+                      .attr("id", "sampleline2")
+                      .attr("d", line);
+
+
+                  context.append("path")
+                      .datum(data)
+                      .attr("class", "line")
+                      .attr("d", line2);
+                  context.append("path")
+                      .datum(sampling_event_1)
+                      .attr("class", "line")
+                      .attr("id","sampleline")
+                      .attr("d", line2);
+                  context.append("path")
+                      .datum(sampling_event_2)
+                      .attr("class", "line")
+                      .attr("id","sampleline2")
+                      .attr("d", line2);
+
+                context.append("g")
+                    .attr("class", "axis axis--x")
+                    //.attr("stroke", "white")
+                    .attr("stroke-width", ".4")
+                    .attr("transform", "translate(0," + height2 + ")")
+                    .call(xAxis2);
+
+                context.append("g")
+                    .attr("class", "brush")
+                    .call(brush)
+                    .call(brush.move, x.range());
+
+
+                svg.append("rect")
+                    .attr("class", "zoom")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                    .call(zoom);
+
+
+
+
+
+              function brushed() {
+                if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
+                var s = d3.event.selection || x2.range();
+                x.domain(s.map(x2.invert, x2));
+                Line_chart.select(".line").attr("d", line);
+                Line_chart.select("#sampleline").attr("d", line);
+                Line_chart.select("#sampleline2").attr("d", line);
+                focus.select(".axis--x").call(xAxis);
+                svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
+                    .scale(width / (s[1] - s[0]))
+                    .translate(-s[0], 0));
+              }
+
+              function zoomed() {
+                if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+                var t = d3.event.transform;
+                x.domain(t.rescaleX(x2).domain());
+                Line_chart.select(".line").attr("d", line);
+                Line_chart.select("#sampleline").attr("d", line);
+                Line_chart.select("#sampleline2").attr("d", line);
+                focus.select(".axis--x").call(xAxis);
+                context.select(".brush").call(brush.move, x.range().map(t.invertX, t));
+              }
+
+
+
+          }
+      });
+  }
+})
+  //.addTo(map)
+
+
+
+
+
+
+map.createPane('pane_watersheds');
+map.getPane('pane_watersheds').style.zIndex = 402;
+map.getPane('pane_watersheds').style['mix-blend-mode'] = 'normal';
+var layer_watersheds = new L.geoJson(watersheds, {
+//    attribution: '',
+    pane: 'pane_watersheds',
+    style: {
+      pane: 'pane_watersheds',
+      opacity: 1,
+      color: 'rgba(0,255,0,1.0)',
+      dashArray: '',
+      lineCap: 'butt',
+      lineJoin: 'miter',
+      weight: 3.0,
+      fill: true,
+      fillOpacity: 0.2,
+      fillColor: 'rgba(34,34,34,1.0)',
+    },
+    onEachFeature: function(feature,layer){
+      //return layer.bindTooltip(feature.properties.Name + '</br>' + feature.properties.HUC12,{direction: 'center'})
+    }
+
+}).addTo(map);
+//map.addLayer(layer_watersheds);
+
+
+/* ADEQ NHDFlowline (streams) Layer */
+function pop_streams(feature, layer) {
+    layer.on({
+        mouseout: function(e) {
+            for (i in e.target._eventParents) {
+                e.target._eventParents[i].resetStyle(e.target);
+            }
+        },
+    });
+}
+map.createPane('pane_streams');
+map.getPane('pane_streams').style.zIndex = 410;
+map.getPane('pane_streams').style['mix-blend-mode'] = 'normal';
+
+var streams = L.esri.featureLayer({
+    url: 'https://gis.arkansas.gov/arcgis/rest/services/FEATURESERVICES/Water/MapServer/10',
+    simplifyFactor: 0.35,
+    precision: 5,
+    fields: ['OBJECTID','GNIS_ID', 'GNIS_Name', 'FType'],
+    pane: 'pane_streams',
+    minZoom: 11,
+    style: {
+      stroke: true,
+      color: 'rgba(161,202,241,1.0)',
+      weight: 2
+    }
+    //onEachFeature: pop_streams
+});
+
+streams.bindPopup(function (layer){
+  return L.Util.template('<table>' +
+    '<tr><td colspan="15"><div class="hideextra"><strong>Name: {GNIS_Name}</strong></div></td></tr>' +
+    //'<tr><td colspan="15"><div class="hideextra"><strong>GNIS ID: {GNIS_ID}</strong></div></td></tr>' +
+    //'<tr><td colspan="15"><div class="hideextra"><strong>Type: {FType}</strong></div></td></tr>' +
+    '</table>', layer.feature.properties);
+});
+
+
+var gray = L.esri.basemapLayer('Gray');
+var streets = L.esri.basemapLayer('Streets');
+var topographic = L.esri.basemapLayer('Topographic');
+
+//Layer Control
+var baseMaps = {
+    "Aerial": esri_aerial_firefly,
+    "Aerial (Clarity)": esri_aerial_clarity,
+    "Hillshade DEM": dem,
+    "Aerial (ADOP)": adop,
+    "ESRI Light Gray": gray,
+    "ESRI Streetmap": streets,
+    "ESRI Topo": topographic
+    //"OSM": osm,
+
+};
+
+var overlayMaps = {
+  " ":{
+    "<img src='img/sampling.png' width='12' height='12'>   Sampling Locations": sampling_locations,
+  //  "<img src='img/conductivity.png' width='12' height='12'>    Conductivity Loggers": conductivity_loggers,
+    "Outfall 001 Watershed": layer_watersheds
+  },
+  "Reference":{
+    "NHD Streams": streams
+  }
+};
+
+L.control.groupedLayers(baseMaps, overlayMaps, {collapsed:false}).addTo(map);
+
+</script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+</body>
+</html>

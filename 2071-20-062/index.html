@@ -19,6 +19,7 @@
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
    <script src="data/lab_data.js"></script>
    <script src="data/sampling.js"></script>
+   <script src="data/soil_sampling.js"></script>
    <script src="data/conductivity.js"></script>
    <script src="data/watersheds.js"></script>
    <style>
@@ -268,7 +269,7 @@ function onEachFeature(feature, layer) {
   var LEAD = feature.properties.Event.map(function(d) { return d.LEAD; });
   var TSS = feature.properties.Event.map(function(d) { return d.TSS; });
   var PH = feature.properties.Event.map(function(d) { return d.PH; });
-  var table_open = "<h3>" + feature.properties.NAME + "</h3><br><table id='newtable' class='table'><thead><tr><th>Date</th><th>Lead (µg/L)</th><th>TSS(mg/L)</th><th>pH (S.U.)</th></tr></thead>"
+  var table_open = "<h3>" + feature.properties.NAME + "</h3><br><table id='newtable' class='table'><thead><tr><th>Date</th><th>Lead (µg/L)</th><th>TSS (mg/L)</th><th>pH (S.U.)</th></tr></thead>"
   var table_body = ""
   var table_close = "</table>"
   for (i=0;i<feature.properties.Event.length;i++){
@@ -464,6 +465,218 @@ var sampling_locations = L.geoJSON(sampling, {
   }
 }).addTo(map);
 
+
+
+
+var sampling_icon = L.icon({
+    iconUrl: 'img/conductivity.png',
+    iconSize: [18, 18]
+})
+
+function onEachFeature(feature, layer) {
+
+
+
+  var NAME = feature.properties.Event.map(function(d) { return d.NAME; });
+  var DATE = feature.properties.Event.map(function(d) { return d.DATE; });
+  var LEAD = feature.properties.Event.map(function(d) { return d.LEAD; });
+  var DEPTH = feature.properties.Event.map(function(d) { return d.DEPTH; });
+
+  var table_open = "<h3>" + feature.properties.NAME + "</h3><br><table id='newtable' class='table'><thead><tr><th>Date</th><th>Lead (mg/Kg)</th><th>Depth (inches)</th></tr></thead>"
+  var table_body = ""
+  var table_close = "</table>"
+  for (i=0;i<feature.properties.Event.length;i++){
+    var row = "<tr><td>" + DATE[i]
+    + "</td><td>" + LEAD[i]
+    + "</td><td>" + DEPTH[i]
+    + "</td></tr>"
+    var table_body = table_body+row
+  }
+  var displayedInfo = table_open+table_body+table_close
+  layer.bindTooltip(displayedInfo, {opacity: 0.8})
+    /*
+    var displayedInfo = feature.properties.station_id + "<br>"
+    + date + "<br>"
+    + time + "<br>"
+    + field_crew + "<br>"
+    + cbod + "<br>"
+    + tds + "<br>"
+    + chlorides + "<br>"
+    + notes + "<br>";
+    */
+    layer.setIcon(sampling_icon)
+    layer.on({
+      click: function (e) {
+
+
+        var graph_link = "</br><a data-toggle='modal' href='#ph_modal'>Lead Sampling</a>"
+        var popup_content = feature.properties.NAME
+
+
+        //$('#plot').html("<font color='grey'>" + displayedInfo + "</font>");
+        $('#sampling_table').DataTable({
+          bPaginate: false,
+          bFilter: false,
+          bInfo: false,
+          bOrdering: false
+        });
+        //$(document).ready(function() {
+        //    var table = $('#sampling_table').dataTable();
+        //    table.on('click', 'th', function() {
+        //      $('#plot').html("<font color='grey'>" + d_o + "</font>");
+        //    });
+        //});
+        $("#feature-title").html(feature.properties.PMTNBR);
+        $("#feature-info").html(popup_content + graph_link);
+        //$("#featureModal").modal("show");
+        $("#ph_modal").modal("show");
+
+
+                  //$('#ph_modal').on('shown.bs.modal', function (e) {
+                    $("#ph_info").html("");
+                    $('#ph_title').html(feature.properties.NAME + ": Lead (µg/L)");
+
+                    var hh = $("#ph_info").css('height').replace("px", "");
+                    var ww = $("#ph_info").css('width').replace("px", "");
+                    var margin = {top: 22, right: 20, bottom: 32, left: 52},
+                        width = 800 - margin.left - margin.right,
+                        height = 300 - margin.top - margin.bottom;
+
+                    // parse the date / time
+                    var parseTime = d3.timeParse("%Y-%m-%d");
+                    var formatTime = d3.timeFormat("%Y-%m-%d");
+
+                    // set the ranges
+                    var x = d3.scaleTime().range([6, width]);
+                    var y = d3.scaleLinear().range([height, 0]);
+
+                    // define the line
+
+                    var div = d3.select("#ph_modal").append("div")
+                        .attr("class", "tooltip")
+                        .style("opacity", 0);
+
+                    // append the svg obgect to the body of the page
+                    // appends a 'group' element to 'svg'
+                    // moves the 'group' element to the top left margin
+                    var svg = d3.select("#ph_info").append("svg")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                      .append("g")
+                        .attr("transform",
+                              "translate(" + margin.left + "," + margin.top + ")");
+
+                    // Get the min data
+                    var data = feature.properties.Event.map(function(d) { return {
+                      "date": parseTime(d.DATE),
+                      "close": parseFloat(d.LEAD)
+                      }
+                    })
+
+                    /*
+                    data.forEach(function(d) {
+                      var x_date = (new Date(d.Date)).getTime();
+                      if (x_date > (new Date('2018-12-13 11:25:00')).getTime() &&
+                          x_date < (new Date('2018-12-13 14:05:00')).getTime()){
+                          sampling_event_1.push(d);
+                      }
+                    });
+                    */
+                      // scale the range of the data
+                      x.domain(d3.extent(data, function(d) { return d.date; }));
+                      y.domain([0, 40]);
+
+                      // Add the line
+                      svg.append("path")
+                        .datum(data)
+                        .attr("fill", "none")
+                        .attr("stroke", "steelblue")
+                        .attr("stroke-width", 1.5)
+                        .attr("d", d3.line()
+                          .x(function(d) { return x(d.date) })
+                          .y(function(d) { return y(d.close) })
+                          )
+
+                      // add the valueline path.
+                      //svg.append("path")
+                      //   .data([data])
+                      //   .attr("class", "line")
+                      //   .attr("d", valueline);
+
+                      // add the dots with tooltips
+                      svg.selectAll("dot")
+                         .data(data)
+                       .enter().append("circle")
+                       .filter(function(d) {return d.close > 0})
+                         .attr("r", 4)
+                         .attr("cx", function(d) { return x(d.date); })
+                         .attr("cy", function(d) { return y(d.close); })
+                         .attr("id","scatterpoint")
+                         .style("fill", "red")
+
+
+                         .on("mouseover", function(d) {
+                           div.transition()
+                             .duration(200)
+                             .style("opacity", .9);
+                           div.html("Date:<b> " + formatTime(d.date) + "</b><br/>Lead:<b> " + d.close + " µg/L</b>")
+                             .style("left", (d3.event.pageX) + "px")
+                             .style("top", (d3.event.pageY - 28) + "px");
+                           })
+                         .on("mouseout", function(d) {
+                           div.transition()
+                             .duration(500)
+                             .style("opacity", 0);
+                           });
+
+                      // add the X Axis
+                      svg.append("g")
+                          .attr("transform", "translate(0," + height + ")")
+                          .call(d3.axisBottom(x));
+
+                      // text label for the x axis
+                      svg.append("text")
+                          .attr("transform",
+                                "translate(" + (width/2) + " ," +
+                                               (height + margin.top + 10) + ")")
+                           .attr("id",'axistext')
+                          .style("text-anchor", "middle")
+                          .text("Date");
+
+                      // add the Y Axis
+                      svg.append("g")
+                          .call(d3.axisLeft(y));
+
+                      // text label for the y axis
+                      svg.append("text")
+                          .attr("transform", "rotate(-90)")
+                          .attr("y", -5 - margin.left)
+                          .attr("x",0 - (height / 2))
+                          .attr("dy", "1em")
+                          .attr("id",'axistext')
+                          .style("text-anchor", "middle")
+                          .text("Lead (µg/L))");
+
+
+                  //  });
+
+
+      }
+  });
+}
+    //layer.bindPopup(time)
+    //var popup_content = "<thead>" + feature.properties.station_id + "</thead><img src='img/" + feature.properties.station_id +  ".png' width='480' height='480'> "
+    //layer.bindPopup(popup_content)
+
+//$( "#tds_modal" ).on('hidden.bs.modal', function(){
+//  $("#tds_info").html("<svg id='tds_svg' width='100%' height='100%'></svg>");
+//});
+var soil_sampling_locations = L.geoJSON(soil_sampling, {
+  onEachFeature: onEachFeature,
+  style: {
+    opacity: .5
+  }
+}).addTo(map);
 
 
 
@@ -806,7 +1019,8 @@ var baseMaps = {
 
 var overlayMaps = {
   " ":{
-    "<img src='img/sampling.png' width='12' height='12'>   Sampling Locations": sampling_locations,
+    "<img src='img/sampling.png' width='12' height='12'>   Stormwater Sampling Locations": sampling_locations,
+    "<img src='img/conductivity.png' width='12' height='12'>   Soil Sampling Locations": soil_sampling_locations,
   //  "<img src='img/conductivity.png' width='12' height='12'>    Conductivity Loggers": conductivity_loggers,
     "Outfall 001 Watershed": layer_watersheds
   },
